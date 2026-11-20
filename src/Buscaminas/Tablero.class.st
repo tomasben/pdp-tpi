@@ -25,6 +25,15 @@ Tablero class >> filas: numeroFilas columnas: numeroColumnas [
 Tablero >> cantidadMinas: cantidad [
 	"Establece la cantidad de celdas mina en el tablero. Debe ser menor o igual a la cantidad de celdas."
 
+	| totalCeldas |
+	
+	totalCeldas := filas * columnas.
+	cantidad isInteger ifFalse: [ self error: 'La cantidad de minas debe ser un número entero' ].
+
+	(cantidad >= 0 and: cantidad <= totalCeldas) ifFalse: [
+			self error:
+				'La cantidad de minas debe estar entre 0 y ', totalCeldas asString, ', inclusive' ].
+
 	celdas := self grillaConMinas: cantidad.
 	^ self
 ]
@@ -36,9 +45,12 @@ Tablero >> columnas [
 
 { #category : 'configuration' }
 Tablero >> densidadMinas: densidad [
-	"Establece la proporción de minas respecto de celdas en el talbero. Recibe un número entre 0 y 1"
-	
-	^ self cantidadMinas: ((filas * columnas * densidad) rounded)
+	"Establece la proporción de minas respecto de celdas en el tablero. Recibe un número entre 0 y 1"
+
+	((densidad >= 0) and: (densidad <= 1))
+		ifFalse: [ self error: 'La densidad de minas debe ser un número entre 0 y 1' ].
+
+	^ self cantidadMinas: (filas * columnas * densidad) rounded
 ]
 
 { #category : 'accessing' }
