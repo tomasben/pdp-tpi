@@ -9,7 +9,8 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'filas',
-		'columnas'
+		'columnas',
+		'celdas'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -37,5 +38,9 @@ Tablero >> filas: numeroFilas columnas: numeroColumnas [
 
 	filas := numeroFilas.
 	columnas := numeroColumnas.
+	celdas := (1 to: filas) collect: [ :fila |
+		(1 to: columnas) collect: [ :columna | Celda fila: fila columna: columna ]
+	].
 	^ self
+	
 ]
