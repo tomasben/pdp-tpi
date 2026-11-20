@@ -37,11 +37,8 @@ Tablero >> columnas [
 { #category : 'configuration' }
 Tablero >> densidadMinas: densidad [
 	"Establece la proporción de minas respecto de celdas en el talbero. Recibe un número entre 0 y 1"
-
-	| cantidad |
-	cantidad := (filas * columnas * densidad) rounded.
-	celdas := self grillaConMinas: cantidad.
-	^ self
+	
+	^ self cantidadMinas: ((filas * columnas * densidad) rounded)
 ]
 
 { #category : 'accessing' }
