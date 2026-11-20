@@ -7,8 +7,8 @@ Class {
 	#instVars : [
 		'fila',
 		'columna',
-		'descubierta',
-		'marcada'
+		'estaDescubierta',
+		'estaMarcada'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -26,22 +26,26 @@ Celda >> columna [
 
 { #category : 'actions' }
 Celda >> descubrir [
-	descubierta := true
+
+	estaDescubierta := true
 ]
 
 { #category : 'actions' }
 Celda >> desmarcar [
-	marcada := false
+
+	estaMarcada := false
 ]
 
 { #category : 'testing' }
 Celda >> estaDescubierta [
-	^ descubierta
+
+	^ estaDescubierta
 ]
 
 { #category : 'testing' }
 Celda >> estaMarcada [
-	^ marcada 
+
+	^ estaMarcada
 ]
 
 { #category : 'accessing' }
@@ -60,7 +64,8 @@ Celda >> fila: numeroFila columna: numeroColumna [
 
 { #category : 'actions' }
 Celda >> marcar [
-	marcada := true
+
+	estaMarcada := true
 ]
 
 { #category : 'testing' }
