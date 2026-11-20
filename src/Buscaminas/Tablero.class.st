@@ -18,7 +18,6 @@ Class {
 
 { #category : 'instance creation' }
 Tablero class >> filas: numeroFilas columnas: numeroColumnas [
-
 	^ self new filas: numeroFilas columnas: numeroColumnas
 ]
 
