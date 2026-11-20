@@ -24,6 +24,16 @@ Celda >> columna [
 	^ columna
 ]
 
+{ #category : 'actions' }
+Celda >> descubrir [
+	descubierta := true
+]
+
+{ #category : 'actions' }
+Celda >> desmarcar [
+	marcada := false
+]
+
 { #category : 'testing' }
 Celda >> estaDescubierta [
 	^ descubierta
@@ -46,4 +56,14 @@ Celda >> fila: numeroFila columna: numeroColumna [
 	fila := numeroFila.
 	columna := numeroColumna.
 	^ self
+]
+
+{ #category : 'actions' }
+Celda >> marcar [
+	marcada := true
+]
+
+{ #category : 'testing' }
+Celda >> tieneMina [
+	^ self subclassResponsibility
 ]
