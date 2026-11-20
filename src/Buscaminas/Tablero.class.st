@@ -48,11 +48,11 @@ Tablero >> filas [
 
 { #category : 'initialization' }
 Tablero >> filas: numeroFilas columnas: numeroColumnas [
-	"Establece las dimensiones del Tablero cuando se inicializa. Usa una proporción de minas del 15% por defecto."
+	"Establece las dimensiones del Tablero cuando se inicializa. Usa una proporción de minas del 15% por defecto"
 
 	filas := numeroFilas.
 	columnas := numeroColumnas.
-	celdas := self grillaConMinas: 0.15.
+	celdas := self densidadMinas: 0.15.
 	^ self
 ]
 
