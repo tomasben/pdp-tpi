@@ -28,7 +28,7 @@ Partida >> actualizarEstado: celda [
 
 ( self estaEnCurso ) ifTrue: [ 
 			tablero descubrirCelda: celda.
-			( celda tieneMina ) ifTrue: [ estado := #perdida ] ifFalse: [ estado := #enCurso ]
+			( self tieneMina ) ifTrue: [ estado := #perdida ] ifFalse: [ estado := #enCurso ]
 	 ]
 ]
 
