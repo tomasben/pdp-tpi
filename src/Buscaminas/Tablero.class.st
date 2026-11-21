@@ -38,6 +38,11 @@ Tablero >> cantidadMinas: cantidad [
 	^ self
 ]
 
+{ #category : 'private' }
+Tablero >> cantidadMinasVecinasDe: unaCelda [
+	^ (self vecinasDe: unaCelda) count: [ :vecina | vecina tieneMina ]
+]
+
 { #category : 'accessing' }
 Tablero >> celdaEnFila: numeroFila columna: numeroColumna [
 	((numeroFila between: 1 and: filas) and: [
