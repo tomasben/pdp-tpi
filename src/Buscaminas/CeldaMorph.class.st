@@ -16,6 +16,8 @@ fila:= unaFila.
 columna:= unaColumna.
 self extent: 30@30. 
 self color: Color lightGray. 
+self borderWidth: 1.
+self borderColor: Color black.
 ]
 
 { #category : 'event handling' }
