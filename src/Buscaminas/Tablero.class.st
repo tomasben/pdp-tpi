@@ -39,6 +39,15 @@ Tablero >> cantidadMinas: cantidad [
 ]
 
 { #category : 'accessing' }
+Tablero >> celdaEnFila: numeroFila columna: numeroColumna [
+	((numeroFila between: 1 and: filas) and: [
+		 numeroColumna between: 1 and: columnas ]) ifFalse: [
+		self error: 'La posición está fuera del tablero' ].
+
+	^ (celdas at: numeroFila) at: numeroColumna
+]
+
+{ #category : 'accessing' }
 Tablero >> columnas [
 	^ columnas
 ]
