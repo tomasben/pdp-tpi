@@ -13,13 +13,18 @@ Class {
 
 { #category : 'initialization' }
 MenuJuego >> Dificil [
-	Transcript show: 'Seleccionaste Dificil'; cr
 
+	Transcript
+		show: 'Seleccionaste Dificil';
+		newLine
 ]
 
 { #category : 'initialization' }
 MenuJuego >> Facil [
-    Transcript show: 'Seleccionaste Facil'; cr
+
+	Transcript
+		show: 'Seleccionaste Facil';
+		newLine
 ]
 
 { #category : 'initialization' }

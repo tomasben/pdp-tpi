@@ -10,6 +10,14 @@ Class {
 	#package : 'Buscaminas'
 }
 
+{ #category : 'initialization' }
+CeldaMorph >> configurarFila: unaFila columna: unaColumna [
+fila:= unaFila.
+columna:= unaColumna.
+self extent: 30@30. 
+self color: Color lightGray. 
+]
+
 { #category : 'event handling' }
 CeldaMorph >> handlesMouseDown: anEvent [
     ^ true
