@@ -17,7 +17,7 @@ Class {
 }
 
 { #category : 'instance creation' }
-Tablero class >> dificil [
+Tablero class >> constructorDificil [
 
 |nuevoTablero|
 nuevoTablero := self filas: 16  columnas: 30. 
@@ -26,7 +26,7 @@ nuevoTablero cantidadMinas: 99.
 ]
 
 { #category : 'instance creation' }
-Tablero class >> facil [
+Tablero class >> constructorFacil [
 |nuevoTablero|
 nuevoTablero := self filas: 9  columnas: 9. 
 nuevoTablero cantidadMinas: 10.
@@ -34,17 +34,17 @@ nuevoTablero cantidadMinas: 10.
 ]
 
 { #category : 'instance creation' }
-Tablero class >> filas: numeroFilas columnas: numeroColumnas [
-	^ self new filas: numeroFilas columnas: numeroColumnas
-]
-
-{ #category : 'instance creation' }
-Tablero class >> medio [
+Tablero class >> constructorMedio [
 
 |nuevoTablero|
 nuevoTablero := self filas: 16  columnas: 16. 
 nuevoTablero cantidadMinas: 40.
 ^nuevoTablero
+]
+
+{ #category : 'instance creation' }
+Tablero class >> filas: numeroFilas columnas: numeroColumnas [
+	^ self new filas: numeroFilas columnas: numeroColumnas
 ]
 
 { #category : 'configuration' }
