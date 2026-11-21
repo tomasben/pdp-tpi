@@ -1,5 +1,5 @@
 "
-Representa uno de los bloques del tablero
+Representa un bloque o división del tablero de juego
 "
 Class {
 	#name : 'Celda',
@@ -8,7 +8,8 @@ Class {
 		'fila',
 		'columna',
 		'estaDescubierta',
-		'estaMarcada'
+		'estaMarcada',
+		'cantidadMinasVecinas'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -17,6 +18,18 @@ Class {
 { #category : 'instance creation' }
 Celda class >> fila: numeroFila columna: numeroColumna [
 	^ self new fila: numeroFila columna: numeroColumna
+]
+
+{ #category : 'accessing' }
+Celda >> cantidadMinasVecinas [
+
+	^ cantidadMinasVecinas
+]
+
+{ #category : 'accessing' }
+Celda >> cantidadMinasVecinas: cantidad [
+
+	cantidadMinasVecinas := cantidad
 ]
 
 { #category : 'accessing' }
@@ -56,10 +69,18 @@ Celda >> fila [
 { #category : 'initialization' }
 Celda >> fila: numeroFila columna: numeroColumna [
 	"Configura las posiciones de la celda en el tablero"
-	
+
 	fila := numeroFila.
 	columna := numeroColumna.
 	^ self
+]
+
+{ #category : 'initialization' }
+Celda >> initialize [
+	super initialize.
+	estaDescubierta := false.
+	estaMarcada := false.
+	cantidadMinasVecinas := 0.
 ]
 
 { #category : 'actions' }

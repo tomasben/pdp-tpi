@@ -17,6 +17,32 @@ Class {
 }
 
 { #category : 'instance creation' }
+Tablero class >> constructorDificil [
+
+|nuevoTablero|
+nuevoTablero := self filas: 16  columnas: 30. 
+nuevoTablero cantidadMinas: 99.
+^nuevoTablero
+]
+
+{ #category : 'instance creation' }
+Tablero class >> constructorFacil [
+|nuevoTablero|
+nuevoTablero := self filas: 9  columnas: 9. 
+nuevoTablero cantidadMinas: 10.
+^nuevoTablero
+]
+
+{ #category : 'instance creation' }
+Tablero class >> constructorMedio [
+
+|nuevoTablero|
+nuevoTablero := self filas: 16  columnas: 16. 
+nuevoTablero cantidadMinas: 40.
+^nuevoTablero
+]
+
+{ #category : 'instance creation' }
 Tablero class >> filas: numeroFilas columnas: numeroColumnas [
 	^ self new filas: numeroFilas columnas: numeroColumnas
 ]
@@ -64,7 +90,7 @@ Tablero >> filas: numeroFilas columnas: numeroColumnas [
 
 	filas := numeroFilas.
 	columnas := numeroColumnas.
-	celdas := self densidadMinas: 0.15.
+	self densidadMinas: 0.15.
 	^ self
 ]
 
@@ -83,4 +109,24 @@ Tablero >> grillaConMinas: cantidad [
 					  (minadas includes: indice)
 						  ifTrue: [ CeldaConMina fila: fila columna: columna ]
 						  ifFalse: [ CeldaSinMina fila: fila columna: columna ] ] ]
+]
+
+{ #category : 'accessing' }
+Tablero >> vecinasDe: unaCelda [
+    | dx dy vecinas |
+
+    dx := #(-1 0 1 -1 1 -1 0 1).
+    dy := #(-1 -1 -1 0 0 1 1 1).
+    vecinas := OrderedCollection new.
+
+    1 to: dx size do: [ :i |
+        | filaVecina columnaVecina |
+        filaVecina := unaCelda fila + (dy at: i).
+        columnaVecina := unaCelda columna + (dx at: i).
+
+        ((filaVecina between: 1 and: filas) and: [
+            columnaVecina between: 1 and: columnas ]) ifTrue: [
+                vecinas add: ((celdas at: filaVecina) at: columnaVecina) ] ].
+
+    ^ vecinas asArray
 ]
