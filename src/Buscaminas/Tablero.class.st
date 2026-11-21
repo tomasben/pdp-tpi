@@ -97,21 +97,6 @@ Tablero >> densidadMinas: densidad [
 ]
 
 { #category : 'actions' }
-Tablero >> descubrirCelda: unaCelda [
-	(unaCelda estaDescubierta or: unaCelda estaMarcada)
-		ifTrue: [  ^ self ].
-		
-	unaCelda descubrir. 
-	unaCelda tieneMina ifTrue: [ ^ self ].
-	
-	(self vecinasDe: unaCelda) do:	[ :celdaVecina |
-		(celdaVecina tieneMina or: celdaVecina estaMarcada) ifFalse: [ celdaVecina descubrir ].
-	].
-
-	
-]
-
-{ #category : 'actions' }
 Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
 	| celda pendientes |
 	celda := self celdaEnFila: numeroFila columna: numeroColumna.
@@ -167,7 +152,7 @@ Tablero >> grillaConMinas: cantidad [
 ]
 
 { #category : 'testing' }
-Tablero >> todasLasCeldasSinMinaDescubiertas [
+Tablero >> obtenerCeldasSinMinasDescubiertas [
 	^ celdas allSatisfy: [ :filaDeCeldas |
 			  filaDeCeldas allSatisfy: [ :celda |
 					  celda tieneMina or: [ celda estaDescubierta ] ] ]
