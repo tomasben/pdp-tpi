@@ -69,7 +69,7 @@ Celda >> fila [
 { #category : 'initialization' }
 Celda >> fila: numeroFila columna: numeroColumna [
 	"Configura las posiciones de la celda en el tablero"
-	
+
 	fila := numeroFila.
 	columna := numeroColumna.
 	^ self
@@ -77,8 +77,10 @@ Celda >> fila: numeroFila columna: numeroColumna [
 
 { #category : 'initialization' }
 Celda >> initialize [
+	super initialize.
 	estaDescubierta := false.
 	estaMarcada := false.
+	cantidadMinasVecinas := 0.
 ]
 
 { #category : 'actions' }
