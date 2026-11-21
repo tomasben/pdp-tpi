@@ -1,5 +1,5 @@
 "
-Representa uno de los bloques del tablero
+Representa un bloque o división del tablero de juego
 "
 Class {
 	#name : 'Celda',
@@ -60,6 +60,12 @@ Celda >> fila: numeroFila columna: numeroColumna [
 	fila := numeroFila.
 	columna := numeroColumna.
 	^ self
+]
+
+{ #category : 'initialization' }
+Celda >> initialize [
+	estaDescubierta := false.
+	estaMarcada := false.
 ]
 
 { #category : 'actions' }
