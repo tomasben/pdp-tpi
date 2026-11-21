@@ -47,6 +47,14 @@ Tablero class >> filas: numeroFilas columnas: numeroColumnas [
 	^ self new filas: numeroFilas columnas: numeroColumnas
 ]
 
+{ #category : 'as yet unclassified' }
+Tablero >> cantidadCeldasSinMinasDescubiertas [
+	"Cuenta cuántas celdas tienen mina o ya fueron descubiertas"
+	^ celdas sum: [ :filaDeCeldas |
+		filaDeCeldas count: [ :celda |
+			celda tieneMina or: [ celda estaDescubierta ] ] ]
+]
+
 { #category : 'configuration' }
 Tablero >> cantidadMinas: cantidad [
 	"Establece la cantidad de celdas mina en el tablero. Debe ser menor o igual a la cantidad de celdas."
@@ -94,21 +102,6 @@ Tablero >> densidadMinas: densidad [
 		ifFalse: [ self error: 'La densidad de minas debe ser un número entre 0 y 1' ].
 
 	^ self cantidadMinas: (filas * columnas * densidad) rounded
-]
-
-{ #category : 'actions' }
-Tablero >> descubrirCelda: unaCelda [
-	(unaCelda estaDescubierta or: unaCelda estaMarcada)
-		ifTrue: [  ^ self ].
-		
-	unaCelda descubrir. 
-	unaCelda tieneMina ifTrue: [ ^ self ].
-	
-	(self vecinasDe: unaCelda) do:	[ :celdaVecina |
-		(celdaVecina tieneMina or: celdaVecina estaMarcada) ifFalse: [ celdaVecina descubrir ].
-	].
-
-	
 ]
 
 { #category : 'actions' }
@@ -167,7 +160,7 @@ Tablero >> grillaConMinas: cantidad [
 ]
 
 { #category : 'testing' }
-Tablero >> todasLasCeldasSinMinaDescubiertas [
+Tablero >> todasLasCeldasSinMina [
 	^ celdas allSatisfy: [ :filaDeCeldas |
 			  filaDeCeldas allSatisfy: [ :celda |
 					  celda tieneMina or: [ celda estaDescubierta ] ] ]
