@@ -152,7 +152,7 @@ Tablero >> grillaConMinas: cantidad [
 ]
 
 { #category : 'testing' }
-Tablero >> obtenerCeldasSinMinasDescubiertas [
+Tablero >> todasLasCeldasSinMina [
 	^ celdas allSatisfy: [ :filaDeCeldas |
 			  filaDeCeldas allSatisfy: [ :celda |
 					  celda tieneMina or: [ celda estaDescubierta ] ] ]
