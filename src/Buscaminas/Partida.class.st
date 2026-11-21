@@ -27,7 +27,7 @@ estado := #enCurso
 Partida >> actualizarEstado: celda [ 
 
 ( self estaEnCurso ) ifTrue: [ 
-			tablero descubrirCelda: celda.
+			tablero descubrirCeldaEnFila: celda fila columna: celda columna.
 			( self tieneMina ) ifTrue: [ estado := #perdida ] ifFalse: [ estado := #enCurso ]
 	 ]
 ]
@@ -54,5 +54,5 @@ Partida >> estaEnCurso [
 Partida >> evaluarEstado [
 "Verifica si el tablero tiene alguna mina descubierta (perdiste) o si ya se despejaron todas las celdas seguras (ganaste)"
 
-(tablero celdasSegurasDescubiertas) ifTrue: [ estado := #Ganada ]
+(tablero todasLasCeldasSinMina) ifTrue: [ estado := #Ganada ]
 ]
