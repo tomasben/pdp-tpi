@@ -64,6 +64,20 @@ Tablero >> cantidadMinas: cantidad [
 	^ self
 ]
 
+{ #category : 'private' }
+Tablero >> cantidadMinasVecinasDe: unaCelda [
+	^ (self vecinasDe: unaCelda) count: [ :vecina | vecina tieneMina ]
+]
+
+{ #category : 'accessing' }
+Tablero >> celdaEnFila: numeroFila columna: numeroColumna [
+	((numeroFila between: 1 and: filas) and: [
+		 numeroColumna between: 1 and: columnas ]) ifFalse: [
+		self error: 'La posición está fuera del tablero' ].
+
+	^ (celdas at: numeroFila) at: numeroColumna
+]
+
 { #category : 'accessing' }
 Tablero >> columnas [
 	^ columnas
@@ -77,6 +91,29 @@ Tablero >> densidadMinas: densidad [
 		ifFalse: [ self error: 'La densidad de minas debe ser un número entre 0 y 1' ].
 
 	^ self cantidadMinas: (filas * columnas * densidad) rounded
+]
+
+{ #category : 'actions' }
+Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
+	| celda pendientes |
+	celda := self celdaEnFila: numeroFila columna: numeroColumna.
+	(celda estaDescubierta or: [ celda estaMarcada ]) ifTrue: [ ^ celda ].
+
+	pendientes := OrderedCollection with: celda.
+	[ pendientes isEmpty ] whileFalse: [
+		| actual |
+		actual := pendientes removeFirst.
+		actual descubrir.
+		actual cantidadMinasVecinas: (self cantidadMinasVecinasDe: actual).
+
+		(actual tieneMina not and: [ actual cantidadMinasVecinas = 0 ])
+			ifTrue: [
+				(self vecinasDe: actual) do: [ :vecina |
+					(vecina estaDescubierta or: [
+						 vecina estaMarcada or: [ pendientes includes: vecina ] ])
+						ifFalse: [ pendientes add: vecina ] ] ] ].
+
+	^ celda
 ]
 
 { #category : 'accessing' }
@@ -109,6 +146,13 @@ Tablero >> grillaConMinas: cantidad [
 					  (minadas includes: indice)
 						  ifTrue: [ CeldaConMina fila: fila columna: columna ]
 						  ifFalse: [ CeldaSinMina fila: fila columna: columna ] ] ]
+]
+
+{ #category : 'testing' }
+Tablero >> todasLasCeldasSinMinaDescubiertas [
+	^ celdas allSatisfy: [ :filaDeCeldas |
+			  filaDeCeldas allSatisfy: [ :celda |
+					  celda tieneMina or: [ celda estaDescubierta ] ] ]
 ]
 
 { #category : 'accessing' }
