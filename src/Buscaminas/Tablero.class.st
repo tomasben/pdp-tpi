@@ -52,16 +52,33 @@ Tablero >> cantidadMinas: cantidad [
 	"Establece la cantidad de celdas mina en el tablero. Debe ser menor o igual a la cantidad de celdas."
 
 	| totalCeldas |
-	
 	totalCeldas := filas * columnas.
 	cantidad isInteger ifFalse: [ self error: 'La cantidad de minas debe ser un número entero' ].
 
 	(cantidad >= 0 and: cantidad <= totalCeldas) ifFalse: [
-			self error:
-				'La cantidad de minas debe estar entre 0 y ', totalCeldas asString, ', inclusive' ].
+		self error: 'La cantidad de minas debe estar entre 0 y ' , totalCeldas asString , ', inclusive' ].
 
 	celdas := self grillaConMinas: cantidad.
+	 celdas do: [ :filaDeCeldas |
+        filaDeCeldas do: [ :celda |
+            celda cantidadMinasVecinas:
+                ((self vecinasDe: celda) count: [ :vecina | vecina tieneMina ]) ] ].
+	
 	^ self
+]
+
+{ #category : 'private' }
+Tablero >> cantidadMinasVecinasDe: unaCelda [
+	^ (self vecinasDe: unaCelda) count: [ :vecina | vecina tieneMina ]
+]
+
+{ #category : 'accessing' }
+Tablero >> celdaEnFila: numeroFila columna: numeroColumna [
+	((numeroFila between: 1 and: filas) and: [
+		 numeroColumna between: 1 and: columnas ]) ifFalse: [
+		self error: 'La posición está fuera del tablero' ].
+
+	^ (celdas at: numeroFila) at: numeroColumna
 ]
 
 { #category : 'accessing' }
@@ -77,6 +94,44 @@ Tablero >> densidadMinas: densidad [
 		ifFalse: [ self error: 'La densidad de minas debe ser un número entre 0 y 1' ].
 
 	^ self cantidadMinas: (filas * columnas * densidad) rounded
+]
+
+{ #category : 'actions' }
+Tablero >> descubrirCelda: unaCelda [
+	(unaCelda estaDescubierta or: unaCelda estaMarcada)
+		ifTrue: [  ^ self ].
+		
+	unaCelda descubrir. 
+	unaCelda tieneMina ifTrue: [ ^ self ].
+	
+	(self vecinasDe: unaCelda) do:	[ :celdaVecina |
+		(celdaVecina tieneMina or: celdaVecina estaMarcada) ifFalse: [ celdaVecina descubrir ].
+	].
+
+	
+]
+
+{ #category : 'actions' }
+Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
+	| celda pendientes |
+	celda := self celdaEnFila: numeroFila columna: numeroColumna.
+	(celda estaDescubierta or: [ celda estaMarcada ]) ifTrue: [ ^ celda ].
+
+	pendientes := OrderedCollection with: celda.
+	[ pendientes isEmpty ] whileFalse: [
+		| actual |
+		actual := pendientes removeFirst.
+		actual descubrir.
+		actual cantidadMinasVecinas: (self cantidadMinasVecinasDe: actual).
+
+		(actual tieneMina not and: [ actual cantidadMinasVecinas = 0 ])
+			ifTrue: [
+				(self vecinasDe: actual) do: [ :vecina |
+					(vecina estaDescubierta or: [
+						 vecina estaMarcada or: [ pendientes includes: vecina ] ])
+						ifFalse: [ pendientes add: vecina ] ] ] ].
+
+	^ celda
 ]
 
 { #category : 'accessing' }
@@ -109,6 +164,13 @@ Tablero >> grillaConMinas: cantidad [
 					  (minadas includes: indice)
 						  ifTrue: [ CeldaConMina fila: fila columna: columna ]
 						  ifFalse: [ CeldaSinMina fila: fila columna: columna ] ] ]
+]
+
+{ #category : 'testing' }
+Tablero >> todasLasCeldasSinMinaDescubiertas [
+	^ celdas allSatisfy: [ :filaDeCeldas |
+			  filaDeCeldas allSatisfy: [ :celda |
+					  celda tieneMina or: [ celda estaDescubierta ] ] ]
 ]
 
 { #category : 'accessing' }
