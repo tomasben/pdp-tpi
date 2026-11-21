@@ -26,15 +26,18 @@ Tablero >> cantidadMinas: cantidad [
 	"Establece la cantidad de celdas mina en el tablero. Debe ser menor o igual a la cantidad de celdas."
 
 	| totalCeldas |
-	
 	totalCeldas := filas * columnas.
 	cantidad isInteger ifFalse: [ self error: 'La cantidad de minas debe ser un número entero' ].
 
 	(cantidad >= 0 and: cantidad <= totalCeldas) ifFalse: [
-			self error:
-				'La cantidad de minas debe estar entre 0 y ', totalCeldas asString, ', inclusive' ].
+		self error: 'La cantidad de minas debe estar entre 0 y ' , totalCeldas asString , ', inclusive' ].
 
 	celdas := self grillaConMinas: cantidad.
+	 celdas do: [ :filaDeCeldas |
+        filaDeCeldas do: [ :celda |
+            celda cantidadMinasVecinas:
+                ((self vecinasDe: celda) count: [ :vecina | vecina tieneMina ]) ] ].
+	
 	^ self
 ]
 
