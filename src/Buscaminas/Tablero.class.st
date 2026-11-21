@@ -84,3 +84,23 @@ Tablero >> grillaConMinas: cantidad [
 						  ifTrue: [ CeldaConMina fila: fila columna: columna ]
 						  ifFalse: [ CeldaSinMina fila: fila columna: columna ] ] ]
 ]
+
+{ #category : 'accessing' }
+Tablero >> vecinasDe: unaCelda [
+    | dx dy vecinas |
+
+    dx := #(-1 0 1 -1 1 -1 0 1).
+    dy := #(-1 -1 -1 0 0 1 1 1).
+    vecinas := OrderedCollection new.
+
+    1 to: dx size do: [ :i |
+        | filaVecina columnaVecina |
+        filaVecina := unaCelda fila + (dy at: i).
+        columnaVecina := unaCelda columna + (dx at: i).
+
+        ((filaVecina between: 1 and: filas) and: [
+            columnaVecina between: 1 and: columnas ]) ifTrue: [
+                vecinas add: ((celdas at: filaVecina) at: columnaVecina) ] ].
+
+    ^ vecinas asArray
+]
