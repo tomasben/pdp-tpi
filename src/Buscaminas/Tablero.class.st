@@ -56,6 +56,21 @@ Tablero >> densidadMinas: densidad [
 	^ self cantidadMinas: (filas * columnas * densidad) rounded
 ]
 
+{ #category : 'actions' }
+Tablero >> descubrirCelda: unaCelda [
+	(unaCelda estaDescubierta or: unaCelda estaMarcada)
+		ifTrue: [  ^ self ].
+		
+	unaCelda descubrir. 
+	unaCelda tieneMina ifTrue: [ ^ self ].
+	
+	(self vecinasDe: unaCelda) do:	[ :celdaVecina |
+		(celdaVecina tieneMina or: celdaVecina estaMarcada) ifFalse: [ celdaVecina descubrir ].
+	].
+
+	
+]
+
 { #category : 'accessing' }
 Tablero >> filas [
 	^ filas
