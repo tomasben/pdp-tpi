@@ -64,7 +64,7 @@ Tablero >> filas: numeroFilas columnas: numeroColumnas [
 
 	filas := numeroFilas.
 	columnas := numeroColumnas.
-	celdas := self densidadMinas: 0.15.
+	self densidadMinas: 0.15.
 	^ self
 ]
 
