@@ -47,6 +47,14 @@ Tablero class >> filas: numeroFilas columnas: numeroColumnas [
 	^ self new filas: numeroFilas columnas: numeroColumnas
 ]
 
+{ #category : 'as yet unclassified' }
+Tablero >> cantidadCeldasSinMinasDescubiertas [
+	"Cuenta cuántas celdas tienen mina o ya fueron descubiertas"
+	^ celdas sum: [ :filaDeCeldas |
+		filaDeCeldas count: [ :celda |
+			celda tieneMina or: [ celda estaDescubierta ] ] ]
+]
+
 { #category : 'configuration' }
 Tablero >> cantidadMinas: cantidad [
 	"Establece la cantidad de celdas mina en el tablero. Debe ser menor o igual a la cantidad de celdas."
