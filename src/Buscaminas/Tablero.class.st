@@ -67,6 +67,29 @@ Tablero >> densidadMinas: densidad [
 	^ self cantidadMinas: (filas * columnas * densidad) rounded
 ]
 
+{ #category : 'actions' }
+Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
+	| celda pendientes |
+	celda := self celdaEnFila: numeroFila columna: numeroColumna.
+	(celda estaDescubierta or: [ celda estaMarcada ]) ifTrue: [ ^ celda ].
+
+	pendientes := OrderedCollection with: celda.
+	[ pendientes isEmpty ] whileFalse: [
+		| actual |
+		actual := pendientes removeFirst.
+		actual descubrir.
+		actual cantidadMinasVecinas: (self cantidadMinasVecinasDe: actual).
+
+		(actual tieneMina not and: [ actual cantidadMinasVecinas = 0 ])
+			ifTrue: [
+				(self vecinasDe: actual) do: [ :vecina |
+					(vecina estaDescubierta or: [
+						 vecina estaMarcada or: [ pendientes includes: vecina ] ])
+						ifFalse: [ pendientes add: vecina ] ] ] ].
+
+	^ celda
+]
+
 { #category : 'accessing' }
 Tablero >> filas [
 	^ filas
