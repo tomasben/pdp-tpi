@@ -17,6 +17,32 @@ Class {
 }
 
 { #category : 'instance creation' }
+Tablero class >> constructorDificil [
+
+|nuevoTablero|
+nuevoTablero := self filas: 16  columnas: 30. 
+nuevoTablero cantidadMinas: 99.
+^nuevoTablero
+]
+
+{ #category : 'instance creation' }
+Tablero class >> constructorFacil [
+|nuevoTablero|
+nuevoTablero := self filas: 9  columnas: 9. 
+nuevoTablero cantidadMinas: 10.
+^nuevoTablero
+]
+
+{ #category : 'instance creation' }
+Tablero class >> constructorMedio [
+
+|nuevoTablero|
+nuevoTablero := self filas: 16  columnas: 16. 
+nuevoTablero cantidadMinas: 40.
+^nuevoTablero
+]
+
+{ #category : 'instance creation' }
 Tablero class >> filas: numeroFilas columnas: numeroColumnas [
 	^ self new filas: numeroFilas columnas: numeroColumnas
 ]
@@ -39,6 +65,20 @@ Tablero >> cantidadMinas: cantidad [
                 ((self vecinasDe: celda) count: [ :vecina | vecina tieneMina ]) ] ].
 	
 	^ self
+]
+
+{ #category : 'private' }
+Tablero >> cantidadMinasVecinasDe: unaCelda [
+	^ (self vecinasDe: unaCelda) count: [ :vecina | vecina tieneMina ]
+]
+
+{ #category : 'accessing' }
+Tablero >> celdaEnFila: numeroFila columna: numeroColumna [
+	((numeroFila between: 1 and: filas) and: [
+		 numeroColumna between: 1 and: columnas ]) ifFalse: [
+		self error: 'La posición está fuera del tablero' ].
+
+	^ (celdas at: numeroFila) at: numeroColumna
 ]
 
 { #category : 'accessing' }
@@ -71,6 +111,29 @@ Tablero >> descubrirCelda: unaCelda [
 	
 ]
 
+{ #category : 'actions' }
+Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
+	| celda pendientes |
+	celda := self celdaEnFila: numeroFila columna: numeroColumna.
+	(celda estaDescubierta or: [ celda estaMarcada ]) ifTrue: [ ^ celda ].
+
+	pendientes := OrderedCollection with: celda.
+	[ pendientes isEmpty ] whileFalse: [
+		| actual |
+		actual := pendientes removeFirst.
+		actual descubrir.
+		actual cantidadMinasVecinas: (self cantidadMinasVecinasDe: actual).
+
+		(actual tieneMina not and: [ actual cantidadMinasVecinas = 0 ])
+			ifTrue: [
+				(self vecinasDe: actual) do: [ :vecina |
+					(vecina estaDescubierta or: [
+						 vecina estaMarcada or: [ pendientes includes: vecina ] ])
+						ifFalse: [ pendientes add: vecina ] ] ] ].
+
+	^ celda
+]
+
 { #category : 'accessing' }
 Tablero >> filas [
 	^ filas
@@ -101,6 +164,13 @@ Tablero >> grillaConMinas: cantidad [
 					  (minadas includes: indice)
 						  ifTrue: [ CeldaConMina fila: fila columna: columna ]
 						  ifFalse: [ CeldaSinMina fila: fila columna: columna ] ] ]
+]
+
+{ #category : 'testing' }
+Tablero >> todasLasCeldasSinMinaDescubiertas [
+	^ celdas allSatisfy: [ :filaDeCeldas |
+			  filaDeCeldas allSatisfy: [ :celda |
+					  celda tieneMina or: [ celda estaDescubierta ] ] ]
 ]
 
 { #category : 'accessing' }
