@@ -122,6 +122,13 @@ Tablero >> grillaConMinas: cantidad [
 						  ifFalse: [ CeldaSinMina fila: fila columna: columna ] ] ]
 ]
 
+{ #category : 'testing' }
+Tablero >> todasLasCeldasSinMinaDescubiertas [
+	^ celdas allSatisfy: [ :filaDeCeldas |
+			  filaDeCeldas allSatisfy: [ :celda |
+					  celda tieneMina or: [ celda estaDescubierta ] ] ]
+]
+
 { #category : 'accessing' }
 Tablero >> vecinasDe: unaCelda [
     | dx dy vecinas |
