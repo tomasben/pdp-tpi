@@ -8,7 +8,8 @@ Class {
 		'fila',
 		'columna',
 		'estaDescubierta',
-		'estaMarcada'
+		'estaMarcada',
+		'cantidadMinasVecinas'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -17,6 +18,18 @@ Class {
 { #category : 'instance creation' }
 Celda class >> fila: numeroFila columna: numeroColumna [
 	^ self new fila: numeroFila columna: numeroColumna
+]
+
+{ #category : 'accessing' }
+Celda >> cantidadMinasVecinas [
+
+	^ cantidadMinasVecinas
+]
+
+{ #category : 'accessing' }
+Celda >> cantidadMinasVecinas: cantidad [
+
+	cantidadMinasVecinas := cantidad
 ]
 
 { #category : 'accessing' }
