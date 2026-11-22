@@ -45,7 +45,7 @@ Partida >> actualizarEstado: celda [
 
 ( self estaEnCurso ) ifTrue: [ 
 			tablero descubrirCeldaEnFila: celda fila columna: celda columna.
-			( self tieneMina ) ifTrue: [ estado := #perdida ] ifFalse: [ estado := #enCurso ]
+			( celda estaDescubierta and: [ celda tieneMina ] ) ifTrue: [ estado := #perdida ] ifFalse: [ estado := #enCurso ]
 	 ]
 ]
 
@@ -53,7 +53,7 @@ Partida >> actualizarEstado: celda [
 Partida >> alternarBandera: celda [
 "Alterna el estado de bandera de una celda y actualiza el contador si la partida sigue en curso."
 
-( self estaEnCurso ) ifTrue: [  
+( self estaEnCurso and: [ celda estaDescubierta not ] ) ifTrue: [  
 				(celda estaMarcada ) ifTrue: [ celda desmarcar. banderasRestantes := banderasRestantes + 1 ] 
 					ifFalse: [
 						(banderasRestantes ~= 0) ifTrue: [ celda marcar. banderasRestantes  := banderasRestantes - 1]
