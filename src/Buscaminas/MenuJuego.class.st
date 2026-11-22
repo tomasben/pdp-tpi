@@ -108,21 +108,6 @@ botonMedio
 	actionSelector: #Medio. 
 ]
 
-{ #category : 'actions' }
-MenuJuego >> iniciarPartidaConNivel: unNivel [
-	"Crea la partida con el tablero del nivel elegido, abre el tablero en una ventana nueva y cierra el menu."
-
-	| partida tableroMorph |
-	dificultadJuego := unNivel.
-	partida := Partida nivel: unNivel.
-
-	tableroMorph := TableroMorph new.
-	tableroMorph configurarConPartida: partida.
-	tableroMorph abrirVentana.
-
-	ventana ifNotNil: [ ventana delete ]
-]
-
 { #category : 'initialization' }
 MenuJuego >> iniciar [
 
@@ -138,4 +123,19 @@ MenuJuego >> iniciar [
 	ventana addMorph: self frame: (0@0 corner: 1@1).
 	ventana openInWorld.
 
+]
+
+{ #category : 'actions' }
+MenuJuego >> iniciarPartidaConNivel: unNivel [
+	"Crea la partida con el tablero del nivel elegido, abre el tablero en una ventana nueva y cierra el menu."
+
+	| partida tableroMorph |
+	dificultadJuego := unNivel.
+	partida := Partida nivel: unNivel.
+
+	tableroMorph := TableroMorph new.
+	tableroMorph configurarConPartida: partida.
+	tableroMorph abrirVentana.
+
+	ventana ifNotNil: [ ventana delete ]
 ]

@@ -131,6 +131,7 @@ Tablero >> descubrirCelda: unaCelda [
 
 	unaCelda descubrir.
 	unaCelda tieneMina ifTrue: [ ^ self ].
+	unaCelda cantidadMinasVecinas > 0 ifTrue: [ ^ self ].
 
 	(self celdasVecinasDe: unaCelda) do: [ :vecina | vecina tieneMina ifFalse: [ self descubrirCelda: vecina ] ]
 ]

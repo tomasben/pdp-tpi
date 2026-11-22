@@ -20,9 +20,12 @@ ventana addMorph: self frame: (0@0 corner: 1@1).
 ventana openInWorld. 
 ]
 
-{ #category : 'accessing' }
-TableroMorph >> partida [
-	^ partida
+{ #category : 'initialization' }
+TableroMorph >> configurarConPartida: unaPartida [
+	"Asocia la partida al morph y dibuja el tablero de esa partida."
+
+	partida := unaPartida.
+	self configurarConTablero: unaPartida tablero
 ]
 
 { #category : 'initialization' }
@@ -30,14 +33,6 @@ TableroMorph >> configurarConTablero: unTablero [
 
     tablero := unTablero.
     self dibujarTablero.
-]
-
-{ #category : 'initialization' }
-TableroMorph >> configurarConPartida: unaPartida [
-	"Asocia la partida al morph y dibuja el tablero de esa partida."
-
-	partida := unaPartida.
-	self configurarConTablero: unaPartida tablero
 ]
 
 { #category : 'initialization' }
@@ -65,4 +60,9 @@ TableroMorph >> dibujarTablero [
 
     self extent:
         (tablero columnas * 30) @ (tablero filas * 30).
+]
+
+{ #category : 'accessing' }
+TableroMorph >> partida [
+	^ partida
 ]

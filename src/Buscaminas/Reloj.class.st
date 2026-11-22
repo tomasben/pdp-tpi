@@ -17,6 +17,11 @@ Class {
 	#package : 'Buscaminas'
 }
 
+{ #category : 'testing' }
+Reloj >> estaDetenido [
+	^estado = #detenido
+]
+
 { #category : 'actions' }
 Reloj >> iniciar [
 	"Arranca desde cero."
