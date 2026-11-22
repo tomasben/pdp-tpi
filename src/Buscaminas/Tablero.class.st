@@ -188,10 +188,3 @@ Tablero >> marcarCeldaEnFila: numeroFila columna: numeroColumna [
 
 	self marcarCelda: (self celdaEnFila: numeroFila columna: numeroColumna).
 ]
-
-{ #category : 'testing' }
-Tablero >> todasLasCeldasSinMina [
-	^ celdas allSatisfy: [ :filaDeCeldas |
-			  filaDeCeldas allSatisfy: [ :celda |
-					  celda tieneMina or: [ celda estaDescubierta ] ] ]
-]

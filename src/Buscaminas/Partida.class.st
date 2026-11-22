@@ -52,7 +52,7 @@ Partida >> estaEnCurso [
 
 { #category : 'changes' }
 Partida >> evaluarEstado [
-"Verifica si el tablero tiene alguna mina descubierta (perdiste) o si ya se despejaron todas las celdas seguras (ganaste)"
+	"Verifica si el tablero tiene alguna mina descubierta (perdiste) o si ya se despejaron todas las celdas seguras (ganaste)"
 
-(tablero todasLasCeldasSinMina) ifTrue: [ estado := #Ganada ]
+	(tablero cantidadCeldasSegurasPorDescubrir = 0) ifTrue: [ estado := #Ganada ]
 ]
