@@ -1,5 +1,5 @@
 "
-Representa el tablero de juego y contiene las dimensiones y celdas que lo componen.
+Representa el tablero de juego
 
 Creación:
 Tablero filas: 3 columnas: 5.
@@ -17,47 +17,37 @@ Class {
 }
 
 { #category : 'instance creation' }
-Tablero class >> constructorDificil [
-
-|nuevoTablero|
-nuevoTablero := self filas: 16  columnas: 30. 
-nuevoTablero cantidadMinas: 99.
-^nuevoTablero
+Tablero class >> dificultadDificil [
+	^ self filas: 16 columnas: 30 cantidadMinas: 99 
 ]
 
 { #category : 'instance creation' }
-Tablero class >> constructorFacil [
-|nuevoTablero|
-nuevoTablero := self filas: 9  columnas: 9. 
-nuevoTablero cantidadMinas: 10.
-^nuevoTablero
+Tablero class >> dificultadFacil [
+	^ self filas: 9 columnas: 9 cantidadMinas: 10
 ]
 
 { #category : 'instance creation' }
-Tablero class >> constructorMedio [
-
-|nuevoTablero|
-nuevoTablero := self filas: 16  columnas: 16. 
-nuevoTablero cantidadMinas: 40.
-^nuevoTablero
+Tablero class >> dificultadMedia [
+	^ self filas: 16 columnas: 16 cantidadMinas: 40
+	
 ]
 
 { #category : 'instance creation' }
-Tablero class >> filas: numeroFilas columnas: numeroColumnas [
-	^ self new filas: numeroFilas columnas: numeroColumnas
+Tablero class >> filas: numeroFilas columnas: numeroColumnas cantidadMinas: numeroMinas [
+
+	^ self new filas: numeroFilas columnas: numeroColumnas cantidadMinas: numeroMinas.
 ]
 
-{ #category : 'as yet unclassified' }
-Tablero >> cantidadCeldasSinMinasDescubiertas [
-	"Cuenta cuántas celdas tienen mina o ya fueron descubiertas"
-	^ celdas sum: [ :filaDeCeldas |
-		filaDeCeldas count: [ :celda |
-			celda tieneMina or: [ celda estaDescubierta ] ] ]
+{ #category : 'accessing' }
+Tablero >> cantidadCeldasSegurasPorDescubrir [
+	"Devuelve el número de celdas sin mina que faltan por descubrir."
+
+	^ celdas sum: [ :fila | fila count: [ :celda | celda tieneMina not and: celda estaDescubierta not ] ]
 ]
 
 { #category : 'configuration' }
 Tablero >> cantidadMinas: cantidad [
-	"Establece la cantidad de celdas mina en el tablero. Debe ser menor o igual a la cantidad de celdas."
+	"Regenera la grilla con la cantidad de minas indicada y calcula las minas vecinas de cada celda."
 
 	| totalCeldas |
 	totalCeldas := filas * columnas.
@@ -67,17 +57,18 @@ Tablero >> cantidadMinas: cantidad [
 		self error: 'La cantidad de minas debe estar entre 0 y ' , totalCeldas asString , ', inclusive' ].
 
 	celdas := self grillaConMinas: cantidad.
-	 celdas do: [ :filaDeCeldas |
-        filaDeCeldas do: [ :celda |
-            celda cantidadMinasVecinas:
-                ((self vecinasDe: celda) count: [ :vecina | vecina tieneMina ]) ] ].
-	
+	celdas do: [ :fila |
+		fila do: [ :celda |
+			celda cantidadMinasVecinas: (self cantidadMinasVecinasDe: celda)
+		].
+	].
+
 	^ self
 ]
 
 { #category : 'private' }
 Tablero >> cantidadMinasVecinasDe: unaCelda [
-	^ (self vecinasDe: unaCelda) count: [ :vecina | vecina tieneMina ]
+	^ (self celdasVecinasDe: unaCelda) count: [ :vecina | vecina tieneMina ]
 ]
 
 { #category : 'accessing' }
@@ -87,6 +78,26 @@ Tablero >> celdaEnFila: numeroFila columna: numeroColumna [
 		self error: 'La posición está fuera del tablero' ].
 
 	^ (celdas at: numeroFila) at: numeroColumna
+]
+
+{ #category : 'private' }
+Tablero >> celdasVecinasDe: unaCelda [
+    | dx dy vecinas |
+
+    dx := #(-1 0 1 -1 1 -1 0 1).
+    dy := #(-1 -1 -1 0 0 1 1 1).
+    vecinas := OrderedCollection new.
+
+    1 to: dx size do: [ :i |
+        | filaVecina columnaVecina |
+        filaVecina := unaCelda fila + (dy at: i).
+        columnaVecina := unaCelda columna + (dx at: i).
+
+        ((filaVecina between: 1 and: filas) and: [
+            columnaVecina between: 1 and: columnas ]) ifTrue: [
+                vecinas add: ((celdas at: filaVecina) at: columnaVecina) ] ].
+
+    ^ vecinas asArray
 ]
 
 { #category : 'accessing' }
@@ -104,27 +115,27 @@ Tablero >> densidadMinas: densidad [
 	^ self cantidadMinas: (filas * columnas * densidad) rounded
 ]
 
+{ #category : 'private' }
+Tablero >> descubrirCelda: unaCelda [
+
+	(unaCelda estaDescubierta or: [ unaCelda estaMarcada ]) ifTrue: [ ^ self ].
+
+	unaCelda descubrir.
+	unaCelda tieneMina ifTrue: [ ^ self ].
+
+	(self celdasVecinasDe: unaCelda) do: [ :vecina | vecina tieneMina ifFalse: [ self descubrirCelda: vecina ] ]
+]
+
 { #category : 'actions' }
 Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
-	| celda pendientes |
-	celda := self celdaEnFila: numeroFila columna: numeroColumna.
-	(celda estaDescubierta or: [ celda estaMarcada ]) ifTrue: [ ^ celda ].
 
-	pendientes := OrderedCollection with: celda.
-	[ pendientes isEmpty ] whileFalse: [
-		| actual |
-		actual := pendientes removeFirst.
-		actual descubrir.
-		actual cantidadMinasVecinas: (self cantidadMinasVecinasDe: actual).
+	self descubrirCelda: (self celdaEnFila: numeroFila columna: numeroColumna)
+]
 
-		(actual tieneMina not and: [ actual cantidadMinasVecinas = 0 ])
-			ifTrue: [
-				(self vecinasDe: actual) do: [ :vecina |
-					(vecina estaDescubierta or: [
-						 vecina estaMarcada or: [ pendientes includes: vecina ] ])
-						ifFalse: [ pendientes add: vecina ] ] ] ].
+{ #category : 'actions' }
+Tablero >> desmarcarCeldaEnFila: numeroFila columna: numeroColumna [
 
-	^ celda
+	(self celdaEnFila: numeroFila columna: numeroColumna) desmarcar 
 ]
 
 { #category : 'accessing' }
@@ -133,13 +144,12 @@ Tablero >> filas [
 ]
 
 { #category : 'initialization' }
-Tablero >> filas: numeroFilas columnas: numeroColumnas [
-	"Establece las dimensiones del Tablero cuando se inicializa. Usa una proporción de minas del 15% por defecto"
+Tablero >> filas: numeroFilas columnas: numeroColumnas cantidadMinas: numeroMinas [
+	"Establece las dimensiones del Tablero cuando se inicializa"
 
 	filas := numeroFilas.
 	columnas := numeroColumnas.
-	self densidadMinas: 0.15.
-	^ self
+	self cantidadMinas: numeroMinas
 ]
 
 { #category : 'private' }
@@ -159,29 +169,15 @@ Tablero >> grillaConMinas: cantidad [
 						  ifFalse: [ CeldaSinMina fila: fila columna: columna ] ] ]
 ]
 
+{ #category : 'actions' }
+Tablero >> marcarCeldaEnFila: numeroFila columna: numeroColumna [
+	
+	(self celdaEnFila: numeroFila columna: numeroColumna) marcar
+]
+
 { #category : 'testing' }
 Tablero >> todasLasCeldasSinMina [
 	^ celdas allSatisfy: [ :filaDeCeldas |
 			  filaDeCeldas allSatisfy: [ :celda |
 					  celda tieneMina or: [ celda estaDescubierta ] ] ]
-]
-
-{ #category : 'accessing' }
-Tablero >> vecinasDe: unaCelda [
-    | dx dy vecinas |
-
-    dx := #(-1 0 1 -1 1 -1 0 1).
-    dy := #(-1 -1 -1 0 0 1 1 1).
-    vecinas := OrderedCollection new.
-
-    1 to: dx size do: [ :i |
-        | filaVecina columnaVecina |
-        filaVecina := unaCelda fila + (dy at: i).
-        columnaVecina := unaCelda columna + (dx at: i).
-
-        ((filaVecina between: 1 and: filas) and: [
-            columnaVecina between: 1 and: columnas ]) ifTrue: [
-                vecinas add: ((celdas at: filaVecina) at: columnaVecina) ] ].
-
-    ^ vecinas asArray
 ]
