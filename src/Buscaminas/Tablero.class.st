@@ -156,7 +156,7 @@ Tablero >> todasLasCeldasSinMina [
 					  celda tieneMina or: [ celda estaDescubierta ] ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'private' }
 Tablero >> vecinasDe: unaCelda [
     | dx dy vecinas |
 
