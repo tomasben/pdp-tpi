@@ -68,7 +68,7 @@ Tablero >> cantidadMinas: cantidad [
 
 { #category : 'private' }
 Tablero >> cantidadMinasVecinasDe: unaCelda [
-	^ (self vecinasDe: unaCelda) count: [ :vecina | vecina tieneMina ]
+	^ (self celdasVecinasDe: unaCelda) count: [ :vecina | vecina tieneMina ]
 ]
 
 { #category : 'accessing' }
@@ -78,6 +78,26 @@ Tablero >> celdaEnFila: numeroFila columna: numeroColumna [
 		self error: 'La posición está fuera del tablero' ].
 
 	^ (celdas at: numeroFila) at: numeroColumna
+]
+
+{ #category : 'private' }
+Tablero >> celdasVecinasDe: unaCelda [
+    | dx dy vecinas |
+
+    dx := #(-1 0 1 -1 1 -1 0 1).
+    dy := #(-1 -1 -1 0 0 1 1 1).
+    vecinas := OrderedCollection new.
+
+    1 to: dx size do: [ :i |
+        | filaVecina columnaVecina |
+        filaVecina := unaCelda fila + (dy at: i).
+        columnaVecina := unaCelda columna + (dx at: i).
+
+        ((filaVecina between: 1 and: filas) and: [
+            columnaVecina between: 1 and: columnas ]) ifTrue: [
+                vecinas add: ((celdas at: filaVecina) at: columnaVecina) ] ].
+
+    ^ vecinas asArray
 ]
 
 { #category : 'accessing' }
@@ -154,24 +174,4 @@ Tablero >> todasLasCeldasSinMina [
 	^ celdas allSatisfy: [ :filaDeCeldas |
 			  filaDeCeldas allSatisfy: [ :celda |
 					  celda tieneMina or: [ celda estaDescubierta ] ] ]
-]
-
-{ #category : 'private' }
-Tablero >> vecinasDe: unaCelda [
-    | dx dy vecinas |
-
-    dx := #(-1 0 1 -1 1 -1 0 1).
-    dy := #(-1 -1 -1 0 0 1 1 1).
-    vecinas := OrderedCollection new.
-
-    1 to: dx size do: [ :i |
-        | filaVecina columnaVecina |
-        filaVecina := unaCelda fila + (dy at: i).
-        columnaVecina := unaCelda columna + (dx at: i).
-
-        ((filaVecina between: 1 and: filas) and: [
-            columnaVecina between: 1 and: columnas ]) ifTrue: [
-                vecinas add: ((celdas at: filaVecina) at: columnaVecina) ] ].
-
-    ^ vecinas asArray
 ]
