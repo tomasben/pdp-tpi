@@ -1,0 +1,772 @@
+THERE_BE_DRAGONS_HERE
+CannotDeleteFileException: /var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston
+21 November 2026 10:21:28.392663 pm
+
+VM: unix - x86_64 - linux-gnu - CoInterpreter VMMaker-tonel.1 uuid: 4e0890d4-bb0f-0e00-94cb-fcdb0fdfe373 Jun  3 2026
+StackToRegisterMappingCogit VMMaker-tonel.1 uuid: 4e0890d4-bb0f-0e00-94cb-fcdb0fdfe373 Jun  3 2026
+v12.0.3-beta+0.2aa4b7c - Commit: 2aa4b7c - Date: 2026-06-03 15:53:56 +0200
+
+Image: Pharo-14.0.0+SNAPSHOT.build.791.sha.42a90c70a5b86de5f205bdf369ae79fae10ead1b (64 Bit)
+
+File>>openForWrite:
+	Receiver: a File
+	Receiver's instance variables: 
+		name: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+
+	Arguments and temporary variables: 
+		temp1: 	true
+		temp2: 	nil
+
+File>>openForWrite
+	Receiver: a File
+	Receiver's instance variables: 
+		name: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+
+	Arguments and temporary variables: 
+x
+
+File>>writeStream
+	Receiver: a File
+	Receiver's instance variables: 
+		name: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+
+	Arguments and temporary variables: 
+x
+
+FileHandle>>binaryWriteStream
+	Receiver: a FileHandle
+	Receiver's instance variables: 
+		reference: 	File @ /var/home/tomas/.config/pharo/org.pharo.global-identifier[..]
+		writable: 	true
+		id: 	nil
+
+	Arguments and temporary variables: 
+x
+
+FileSystem>>binaryWriteStreamOn:
+	Receiver: a FileSystem
+	Receiver's instance variables: 
+		store: 	an UnixStore
+
+	Arguments and temporary variables: 
+		temp1: 	Path / 'var' / 'home' / 'tomas' / '.config' / 'pharo' / 'org.pharo.[..]
+
+FileReference>>binaryWriteStream
+	Receiver: File @ /var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston
+	Receiver's instance variables: 
+		path: 	Path / 'var' / 'home' / 'tomas' / '.config' / 'pharo' / 'org.pharo.gl[..]
+		filesystem: 	a FileSystem
+
+	Arguments and temporary variables: 
+x
+
+FileLocator>>binaryWriteStream
+	Receiver: {preferences}/pharo/org.pharo.global-identifiers.ston
+	Receiver's instance variables: 
+		path: 	Path * 'pharo' / 'org.pharo.global-identifiers.ston'
+		origin: 	#preferences
+
+	Arguments and temporary variables: 
+x
+
+FileLocator(AbstractFileReference)>>binaryWriteStreamDo:
+	Receiver: {preferences}/pharo/org.pharo.global-identifiers.ston
+	Receiver's instance variables: 
+		path: 	Path * 'pharo' / 'org.pharo.global-identifiers.ston'
+		origin: 	#preferences
+
+	Arguments and temporary variables: 
+		temp1: 	[ ] in GlobalIdentifierPersistence>>#save:
+		temp2: 	nil
+
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>save:
+	Receiver: a GlobalIdentifierStonPersistence
+	Receiver's instance variables: 
+		preferences: 	{preferences}/pharo/org.pharo.global-identifiers.ston
+		previousPersistence: 	a GlobalIdentifierFuelPersistence
+		checker: 	a GlobalIdentifierPersistenceChecker
+
+	Arguments and temporary variables: 
+		temp1: 	a Dictionary(#computerUUID->'67a953fd-03a2-4cfb-b393-a56ed5f21762' [..]
+
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>mayOverwrite:
+	Receiver: a GlobalIdentifierStonPersistence
+	Receiver's instance variables: 
+		preferences: 	{preferences}/pharo/org.pharo.global-identifiers.ston
+		previousPersistence: 	a GlobalIdentifierFuelPersistence
+		checker: 	a GlobalIdentifierPersistenceChecker
+
+	Arguments and temporary variables: 
+		temp1: 	a Dictionary(#computerUUID->'67a953fd-03a2-4cfb-b393-a56ed5f21762' [..]
+
+[ ] in GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>load:
+	Receiver: a GlobalIdentifierStonPersistence
+	Receiver's instance variables: 
+		preferences: 	{preferences}/pharo/org.pharo.global-identifiers.ston
+		previousPersistence: 	a GlobalIdentifierFuelPersistence
+		checker: 	a GlobalIdentifierPersistenceChecker
+
+	Arguments and temporary variables: 
+		temp1: 	a GlobalIdentifier
+
+FullBlockClosure(BlockClosure)>>cull:
+	Receiver: [ ] in GlobalIdentifierPersistence>>#load:
+	Receiver's instance variables: 
+		outerContext: 	GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>[..]
+		compiledBlock: 	a CompiledBlock: [
+		"Preferences likely contains a differen[..]
+		numArgs: 	0
+		receiver: 	a GlobalIdentifierStonPersistence
+
+	Arguments and temporary variables: 
+		temp1: 	CannotDeleteFileException: /var/home/tomas/.config/pharo/org.pharo.[..]
+
+Context>>evaluateSignal:
+	Receiver: FullBlockClosure(BlockClosure)>>on:do:
+	Receiver's instance variables: 
+		sender: 	GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>load:
+		pc: 	30
+		stackp: 	2
+		method: 	BlockClosure>>#on:do:
+		closureOrNil: 	nil
+		receiver: 	[ ] in GlobalIdentifierPersistence>>#load:
+
+	Arguments and temporary variables: 
+		temp1: 	CannotDeleteFileException: /var/home/tomas/.config/pharo/org.pharo.[..]
+		temp2: 	nil
+
+Context>>handleSignal:
+	Receiver: FullBlockClosure(BlockClosure)>>on:do:
+	Receiver's instance variables: 
+		sender: 	GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>load:
+		pc: 	30
+		stackp: 	2
+		method: 	BlockClosure>>#on:do:
+		closureOrNil: 	nil
+		receiver: 	[ ] in GlobalIdentifierPersistence>>#load:
+
+	Arguments and temporary variables: 
+		temp1: 	CannotDeleteFileException: /var/home/tomas/.config/pharo/org.pharo.[..]
+
+CannotDeleteFileException(Exception)>>signal
+	Receiver: CannotDeleteFileException: /var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston
+	Receiver's instance variables: 
+		messageText: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+		tag: 	nil
+		signaler: 	a File
+		signalContext: 	CannotDeleteFileException(Exception)>>signal
+		handlerContext: 	FullBlockClosure(BlockClosure)>>on:do:
+		outerContext: 	nil
+		entity: 	nil
+
+	Arguments and temporary variables: 
+x
+
+CannotDeleteFileException(Exception)>>signal:
+	Receiver: CannotDeleteFileException: /var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston
+	Receiver's instance variables: 
+		messageText: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+		tag: 	nil
+		signaler: 	a File
+		signalContext: 	CannotDeleteFileException(Exception)>>signal
+		handlerContext: 	FullBlockClosure(BlockClosure)>>on:do:
+		outerContext: 	nil
+		entity: 	nil
+
+	Arguments and temporary variables: 
+		temp1: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+
+CannotDeleteFileException class(Exception class)>>signal:
+	Receiver: CannotDeleteFileException
+	Receiver's instance variables: 
+		superclass: 	FileException
+		methodDict: 	a MethodDictionary()
+		format: 	65543
+		layout: 	a FixedLayout
+		protocols: 	#()
+		subclasses: 	nil
+		name: 	#CannotDeleteFileException
+		classPool: 	nil
+		sharedPools: 	nil
+		environment: 	a SystemEnvironment(lots of globals)
+		commentSourcePointer: 	5186450
+		packageTag: 	a PackageTag(Core)
+
+	Arguments and temporary variables: 
+		temp1: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+
+File>>openForWrite:
+	Receiver: a File
+	Receiver's instance variables: 
+		name: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+
+	Arguments and temporary variables: 
+		temp1: 	true
+		temp2: 	nil
+
+File>>openForWrite
+	Receiver: a File
+	Receiver's instance variables: 
+		name: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+
+	Arguments and temporary variables: 
+x
+
+File>>writeStream
+	Receiver: a File
+	Receiver's instance variables: 
+		name: 	'/var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston'
+
+	Arguments and temporary variables: 
+x
+
+FileHandle>>binaryWriteStream
+	Receiver: a FileHandle
+	Receiver's instance variables: 
+		reference: 	File @ /var/home/tomas/.config/pharo/org.pharo.global-identifier[..]
+		writable: 	true
+		id: 	nil
+
+	Arguments and temporary variables: 
+x
+
+FileSystem>>binaryWriteStreamOn:
+	Receiver: a FileSystem
+	Receiver's instance variables: 
+		store: 	an UnixStore
+
+	Arguments and temporary variables: 
+		temp1: 	Path / 'var' / 'home' / 'tomas' / '.config' / 'pharo' / 'org.pharo.[..]
+
+FileReference>>binaryWriteStream
+	Receiver: File @ /var/home/tomas/.config/pharo/org.pharo.global-identifiers.ston
+	Receiver's instance variables: 
+		path: 	Path / 'var' / 'home' / 'tomas' / '.config' / 'pharo' / 'org.pharo.gl[..]
+		filesystem: 	a FileSystem
+
+	Arguments and temporary variables: 
+x
+
+FileLocator>>binaryWriteStream
+	Receiver: {preferences}/pharo/org.pharo.global-identifiers.ston
+	Receiver's instance variables: 
+		path: 	Path * 'pharo' / 'org.pharo.global-identifiers.ston'
+		origin: 	#preferences
+
+	Arguments and temporary variables: 
+x
+
+FileLocator(AbstractFileReference)>>binaryWriteStreamDo:
+	Receiver: {preferences}/pharo/org.pharo.global-identifiers.ston
+	Receiver's instance variables: 
+		path: 	Path * 'pharo' / 'org.pharo.global-identifiers.ston'
+		origin: 	#preferences
+
+	Arguments and temporary variables: 
+		temp1: 	[ ] in GlobalIdentifierPersistence>>#save:
+		temp2: 	nil
+
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>save:
+	Receiver: a GlobalIdentifierStonPersistence
+	Receiver's instance variables: 
+		preferences: 	{preferences}/pharo/org.pharo.global-identifiers.ston
+		previousPersistence: 	a GlobalIdentifierFuelPersistence
+		checker: 	a GlobalIdentifierPersistenceChecker
+
+	Arguments and temporary variables: 
+		temp1: 	a Dictionary(#computerUUID->'67a953fd-03a2-4cfb-b393-a56ed5f21762' [..]
+
+[ ] in GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>load:
+	Receiver: a GlobalIdentifierStonPersistence
+	Receiver's instance variables: 
+		preferences: 	{preferences}/pharo/org.pharo.global-identifiers.ston
+		previousPersistence: 	a GlobalIdentifierFuelPersistence
+		checker: 	a GlobalIdentifierPersistenceChecker
+
+	Arguments and temporary variables: 
+		temp1: 	a GlobalIdentifier
+
+FullBlockClosure(BlockClosure)>>on:do:
+	Receiver: [ ] in GlobalIdentifierPersistence>>#load:
+	Receiver's instance variables: 
+		outerContext: 	GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>[..]
+		compiledBlock: 	a CompiledBlock: [ (self mergeExisting: globalIdentifier sto[..]
+		numArgs: 	0
+		receiver: 	a GlobalIdentifierStonPersistence
+
+	Arguments and temporary variables: 
+		temp1: 	Error
+		temp2: 	[ ] in GlobalIdentifierPersistence>>#load:
+
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>load:
+	Receiver: a GlobalIdentifierStonPersistence
+	Receiver's instance variables: 
+		preferences: 	{preferences}/pharo/org.pharo.global-identifiers.ston
+		previousPersistence: 	a GlobalIdentifierFuelPersistence
+		checker: 	a GlobalIdentifierPersistenceChecker
+
+	Arguments and temporary variables: 
+		temp1: 	a GlobalIdentifier
+
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>ensure:
+	Receiver: a GlobalIdentifierStonPersistence
+	Receiver's instance variables: 
+		preferences: 	{preferences}/pharo/org.pharo.global-identifiers.ston
+		previousPersistence: 	a GlobalIdentifierFuelPersistence
+		checker: 	a GlobalIdentifierPersistenceChecker
+
+	Arguments and temporary variables: 
+		temp1: 	a GlobalIdentifier
+
+GlobalIdentifier>>ensure
+	Receiver: a GlobalIdentifier
+	Receiver's instance variables: 
+		persistenceStrategy: 	a GlobalIdentifierStonPersistence
+		persistedInformation: 	a Dictionary(#computerUUID->'67a953fd-03a2-4cfb-b393-[..]
+
+	Arguments and temporary variables: 
+x
+
+GlobalIdentifier class>>initializeUniqueInstance
+	Receiver: GlobalIdentifier
+	Receiver's instance variables: 
+		superclass: 	Object
+		methodDict: 	a MethodDictionary(#computerUUID->GlobalIdentifier>>#computerUU[..]
+		format: 	65538
+		layout: 	a FixedLayout
+		protocols: 	an Array(Protocol (accessing) - 5 selector(s) Protocol (load and[..]
+		subclasses: 	nil
+		name: 	#GlobalIdentifier
+		classPool: 	nil
+		sharedPools: 	nil
+		environment: 	a SystemEnvironment(lots of globals)
+		commentSourcePointer: 	24379764
+		packageTag: 	a PackageTag(Uncategorized)
+		uniqueInstance: 	a GlobalIdentifier
+
+	Arguments and temporary variables: 
+x
+
+GlobalIdentifier class>>uniqueInstance
+	Receiver: GlobalIdentifier
+	Receiver's instance variables: 
+		superclass: 	Object
+		methodDict: 	a MethodDictionary(#computerUUID->GlobalIdentifier>>#computerUU[..]
+		format: 	65538
+		layout: 	a FixedLayout
+		protocols: 	an Array(Protocol (accessing) - 5 selector(s) Protocol (load and[..]
+		subclasses: 	nil
+		name: 	#GlobalIdentifier
+		classPool: 	nil
+		sharedPools: 	nil
+		environment: 	a SystemEnvironment(lots of globals)
+		commentSourcePointer: 	24379764
+		packageTag: 	a PackageTag(Uncategorized)
+		uniqueInstance: 	a GlobalIdentifier
+
+	Arguments and temporary variables: 
+x
+
+SystemSettingsPersistence class>>resumeSystemSettings
+	Receiver: SystemSettingsPersistence
+	Receiver's instance variables: 
+		superclass: 	Object
+		methodDict: 	a MethodDictionary(#allStoredSettings->SystemSettingsPersistenc[..]
+		format: 	65538
+		layout: 	a FixedLayout
+		protocols: 	an Array(Protocol (accessing) - 7 selector(s) Protocol (deleting[..]
+		subclasses: 	nil
+		name: 	#SystemSettingsPersistence
+		classPool: 	nil
+		sharedPools: 	nil
+		environment: 	a SystemEnvironment(lots of globals)
+		commentSourcePointer: 	80995950
+		packageTag: 	a PackageTag(Persistence-Ston-Core)
+		lastSettingsComputerID: 	'67a953fd-03a2-4cfb-b393-a56ed5f21762'
+
+	Arguments and temporary variables: 
+		temp1: 	nil
+
+PharoOptionsHandler>>runPreferences
+	Receiver: a PharoOptionsHandler
+	Receiver's instance variables: 
+		arguments: 	#('eval' 'Smalltalk globals includesKey: #TonelReader')
+
+	Arguments and temporary variables: 
+x
+
+PharoOptionsHandler>>handlePharoArguments
+	Receiver: a PharoOptionsHandler
+	Receiver's instance variables: 
+		arguments: 	#('eval' 'Smalltalk globals includesKey: #TonelReader')
+
+	Arguments and temporary variables: 
+x
+
+PharoOptionsHandler class(BasicPharoOptionsHandler class)>>handle:
+	Receiver: PharoOptionsHandler
+	Receiver's instance variables: 
+		superclass: 	BasicPharoOptionsHandler
+		methodDict: 	a MethodDictionary(#changePreferences->PharoOptionsHandler>>#ch[..]
+		format: 	65537
+		layout: 	a FixedLayout
+		protocols: 	an Array(Protocol (private - preferences) - 5 selector(s) Protoc[..]
+		subclasses: 	nil
+		name: 	#PharoOptionsHandler
+		classPool: 	a Dictionary(#ShouldIgnorePreferences->false )
+		sharedPools: 	nil
+		environment: 	a SystemEnvironment(lots of globals)
+		commentSourcePointer: 	45278010
+		packageTag: 	a PackageTag(Uncategorized)
+
+	Arguments and temporary variables: 
+		temp1: 	#('eval' 'Smalltalk globals includesKey: #TonelReader')
+
+ClapCommandLineHandler(CommandLineHandler)>>parseGeneralOptions
+	Receiver: a ClapCommandLineHandler
+	Receiver's instance variables: 
+		commandLine: 	a CommandLineArguments
+		session: 	a WorkingSession
+		stdout: 	nil
+		stderr: 	nil
+
+	Arguments and temporary variables: 
+		temp1: 	nil
+
+ClapCommandLineHandler(CommandLineHandler)>>activate
+	Receiver: a ClapCommandLineHandler
+	Receiver's instance variables: 
+		commandLine: 	a CommandLineArguments
+		session: 	a WorkingSession
+		stdout: 	nil
+		stderr: 	nil
+
+	Arguments and temporary variables: 
+x
+
+
+--- The full stack ---
+File>>openForWrite:
+File>>openForWrite
+File>>writeStream
+FileHandle>>binaryWriteStream
+FileSystem>>binaryWriteStreamOn:
+FileReference>>binaryWriteStream
+FileLocator>>binaryWriteStream
+FileLocator(AbstractFileReference)>>binaryWriteStreamDo:
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>save:
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>mayOverwrite:
+[ ] in GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>load:
+FullBlockClosure(BlockClosure)>>cull:
+Context>>evaluateSignal:
+Context>>handleSignal:
+CannotDeleteFileException(Exception)>>signal
+CannotDeleteFileException(Exception)>>signal:
+CannotDeleteFileException class(Exception class)>>signal:
+File>>openForWrite:
+File>>openForWrite
+File>>writeStream
+FileHandle>>binaryWriteStream
+FileSystem>>binaryWriteStreamOn:
+FileReference>>binaryWriteStream
+FileLocator>>binaryWriteStream
+FileLocator(AbstractFileReference)>>binaryWriteStreamDo:
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>save:
+[ ] in GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>load:
+FullBlockClosure(BlockClosure)>>on:do:
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>load:
+GlobalIdentifierStonPersistence(GlobalIdentifierPersistence)>>ensure:
+GlobalIdentifier>>ensure
+GlobalIdentifier class>>initializeUniqueInstance
+GlobalIdentifier class>>uniqueInstance
+SystemSettingsPersistence class>>resumeSystemSettings
+PharoOptionsHandler>>runPreferences
+PharoOptionsHandler>>handlePharoArguments
+PharoOptionsHandler class(BasicPharoOptionsHandler class)>>handle:
+ClapCommandLineHandler(CommandLineHandler)>>parseGeneralOptions
+ClapCommandLineHandler(CommandLineHandler)>>activate
+ - - - - - - - - - - - - - - -
+			- - - - - - - - - - - - - - - - - -
+[ ] in ClapCommandLineHandler class(CommandLineHandler class)>>startUp:
+FullBlockClosure(BlockClosure)>>cull:
+WorkingSession>>executeDeferredStartupActions:
+SessionManager>>snapshot:andQuit:
+[ ] in SmalltalkImage>>snapshot:andQuit:
+CurrentExecutionEnvironment class>>activate:for:
+DefaultExecutionEnvironment(ExecutionEnvironment)>>beActiveDuring:
+DefaultExecutionEnvironment class>>beActiveDuring:
+SmalltalkImage>>snapshot:andQuit:
+WorldState class>>quitSession
+[ ] in UndefinedObject(OSWorldRenderer)>>initialize
+WorldState>>runStepMethodsIn:
+WorldMorph>>runStepMethods
+WorldState>>doOneCycleFor:
+WorldMorph>>doOneCycleNow
+WorldMorph>>doOneCycle
+[ ] in WorldMorph class>>doOneCycle
+FullBlockClosure(BlockClosure)>>ensure:
+WorldState class>>doDrawCycleWith:
+WorldMorph class>>doOneCycle
+MorphicRenderLoop>>doOneCycle
+MorphicRenderLoop>>doOneCycleWhile:
+[ ] in UndefinedObject(MorphicUIManager)>>spawnNewProcess
+[ ] in CleanBlockClosure(BlockClosure)>>newProcess
+-------------------------------------------------------------------------------
+
+Processes and their stacks: 
+Process: a Process in AtomicSharedQueue>>waitForNewItems
+  stack:
+
+AtomicSharedQueue>>waitForNewItems
+AtomicSharedQueue>>next
+TKTWorkerProcess>>privateNextTask
+TKTWorkerProcess>>workerLoop
+MessageSend>>value
+[ ] in TKTPharoProcessProvider>>createProcessDoing:named:
+[ ] in FullBlockClosure(BlockClosure)>>newProcess
+------------------------------
+
+Process: a Process in AtomicSharedQueue>>waitForNewItems
+  stack:
+
+AtomicSharedQueue>>waitForNewItems
+AtomicSharedQueue>>next
+TKTWorkerProcess>>privateNextTask
+TKTWorkerProcess>>workerLoop
+MessageSend>>value
+[ ] in TKTPharoProcessProvider>>createProcessDoing:named:
+[ ] in FullBlockClosure(BlockClosure)>>newProcess
+------------------------------
+
+Process: a Process in DelayMicrosecondTicker>>waitForUserSignalled:orExpired:
+  stack:
+
+DelayMicrosecondTicker>>waitForUserSignalled:orExpired:
+[ ] in DelaySemaphoreScheduler(DelayBasicScheduler)>>runBackendLoopAtTimingPriority
+FullBlockClosure(BlockClosure)>>ensure:
+DelaySemaphoreScheduler(DelayBasicScheduler)>>runBackendLoopAtTimingPriority
+[ ] in DelaySemaphoreScheduler(DelayBasicScheduler)>>startTimerEventLoopPriority:
+[ ] in FullBlockClosure(BlockClosure)>>newProcess
+------------------------------
+
+Process: a Process in AtomicSharedQueue>>waitForNewItems
+  stack:
+
+AtomicSharedQueue>>waitForNewItems
+AtomicSharedQueue>>next
+ClyDataSourceUpdateScheduler>>processQueue
+[ ] in ClyDataSourceUpdateScheduler>>ensureRunning
+[ ] in FullBlockClosure(BlockClosure)>>newProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in [ ] in FTFilterFunction>>spawnFilterUpdateThread
+  stack:
+
+[ ] in FTFilterFunction>>spawnFilterUpdateThread
+[ ] in FullBlockClosure(BlockClosure)>>newProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in nil
+  stack:
+
+Array(SequenceableCollection)>>do:
+[ ] in UndefinedObject(NonInteractiveErrorHandler)>>quitFrom:withMessage:
+[ ] in SmalltalkImage>>logDuring:
+FullBlockClosure(BlockClosure)>>ensure:
+SmalltalkImage>>logDuring:
+[ ] in NonInteractiveErrorHandler>>quitFrom:withMessage:
+FullBlockClosure(BlockClosure)>>ensure:
+NonInteractiveErrorHandler>>quitFrom:withMessage:
+NonInteractiveErrorHandler>>handleError:log:
+NonInteractiveErrorHandler(ErrorHandler)>>handleError:
+Process>>handleError:
+CannotDeleteFileException(Exception)>>unhandledErrorAction
+UnhandledError>>defaultAction
+UndefinedObject>>handleSignal:
+UnhandledError(Exception)>>signal
+UnhandledError class>>signalForException:
+CannotDeleteFileException(Exception)>>raiseUnhandledError
+CannotDeleteFileException(Exception)>>defaultAction
+UndefinedObject>>handleSignal:
+CannotDeleteFileException(Exception)>>signal
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
+Process: a Process in SmalltalkImage>>lowSpaceWatcher
+  stack:
+
+SmalltalkImage>>lowSpaceWatcher
+[ ] in SmalltalkImage>>installLowSpaceWatcher
+[ ] in FullBlockClosure(BlockClosure)>>newProcess
+------------------------------
+
+Process: a Process in [ ] in FullBlockClosure(BlockClosure)>>newProcess
+  stack:
+
+[ ] in FullBlockClosure(BlockClosure)>>newProcess
+------------------------------
+
+Process: a Process in FinalizationProcess class>>finalizationProcess
+  stack:
+
+FinalizationProcess class>>finalizationProcess
+[ ] in FinalizationProcess class>>restartFinalizationProcess
+[ ] in FullBlockClosure(BlockClosure)>>newProcess
+------------------------------
+
+Process: a Process in [ ] in TFCallbackQueue>>forkCallbackProcess
+  stack:
+
+[ ] in TFCallbackQueue>>forkCallbackProcess
+[ ] in FullBlockClosure(BlockClosure)>>newProcess
+------------------------------
+
+Process: a Process in Process>>endProcess
+  stack:
+
+Process>>endProcess
+------------------------------
+
