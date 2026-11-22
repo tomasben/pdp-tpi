@@ -138,6 +138,12 @@ Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
 	^ celda
 ]
 
+{ #category : 'actions' }
+Tablero >> desmarcarCeldaEnFila: numeroFila columna: numeroColumna [
+
+	(self celdaEnFila: numeroFila columna: numeroColumna) desmarcar 
+]
+
 { #category : 'accessing' }
 Tablero >> filas [
 	^ filas
@@ -167,6 +173,12 @@ Tablero >> grillaConMinas: cantidad [
 					  (minadas includes: indice)
 						  ifTrue: [ CeldaConMina fila: fila columna: columna ]
 						  ifFalse: [ CeldaSinMina fila: fila columna: columna ] ] ]
+]
+
+{ #category : 'actions' }
+Tablero >> marcarCeldaEnFila: numeroFila columna: numeroColumna [
+	
+	(self celdaEnFila: numeroFila columna: numeroColumna) marcar
 ]
 
 { #category : 'testing' }
