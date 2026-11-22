@@ -5,7 +5,8 @@ Class {
 		'dificultadJuego',
 		'botonFacil',
 		'botonMedio',
-		'botonDificil'
+		'botonDificil',
+		'ventana'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -14,23 +15,19 @@ Class {
 { #category : 'initialization' }
 MenuJuego >> Dificil [
 
-	Transcript
-		show: 'Seleccionaste Dificil';
-		newLine
+	self iniciarPartidaConNivel: #dificil
 ]
 
 { #category : 'initialization' }
 MenuJuego >> Facil [
 
-	Transcript
-		show: 'Seleccionaste Facil';
-		newLine
+	self iniciarPartidaConNivel: #facil
 ]
 
 { #category : 'initialization' }
 MenuJuego >> Medio [
-	Transcript show: 'Seleccionaste Medio'; cr
 
+	self iniciarPartidaConNivel: #medio
 ]
 
 { #category : 'initialization' }
@@ -111,10 +108,24 @@ botonMedio
 	actionSelector: #Medio. 
 ]
 
+{ #category : 'actions' }
+MenuJuego >> iniciarPartidaConNivel: unNivel [
+	"Crea la partida con el tablero del nivel elegido, abre el tablero en una ventana nueva y cierra el menu."
+
+	| partida tableroMorph |
+	dificultadJuego := unNivel.
+	partida := Partida nivel: unNivel.
+
+	tableroMorph := TableroMorph new.
+	tableroMorph configurarConPartida: partida.
+	tableroMorph abrirVentana.
+
+	ventana ifNotNil: [ ventana delete ]
+]
+
 { #category : 'initialization' }
 MenuJuego >> iniciar [
 
-	| ventana |
 	self
 		extent: 300@200;
 		color: Color lightGray.

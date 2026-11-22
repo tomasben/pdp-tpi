@@ -17,10 +17,27 @@ Class {
 	#package : 'Buscaminas'
 }
 
-{ #category : 'initalize' }
-Partida >> Inicializar [
+{ #category : 'instance creation' }
+Partida class >> nivel: unNivel [
+	"Crea una partida nueva con el tablero correspondiente al nivel (#facil, #medio o #dificil)."
 
-estado := #enCurso
+	^ self new tablero: (self tableroParaNivel: unNivel) nivel: unNivel
+]
+
+{ #category : 'private' }
+Partida class >> tableroParaNivel: unNivel [
+
+	unNivel = #facil ifTrue: [ ^ Tablero dificultadFacil ].
+	unNivel = #medio ifTrue: [ ^ Tablero dificultadMedia ].
+	unNivel = #dificil ifTrue: [ ^ Tablero dificultadDificil ].
+	^ self error: 'Nivel desconocido: ' , unNivel printString
+]
+
+{ #category : 'initialization' }
+Partida >> initialize [
+
+	super initialize.
+	estado := #enCurso
 ]
 
 { #category : 'actions' }
@@ -55,4 +72,29 @@ Partida >> evaluarEstado [
 	"Verifica si el tablero tiene alguna mina descubierta (perdiste) o si ya se despejaron todas las celdas seguras (ganaste)"
 
 	(tablero cantidadCeldasSegurasPorDescubrir = 0) ifTrue: [ estado := #Ganada ]
+]
+
+{ #category : 'accessing' }
+Partida >> banderasRestantes [
+	^ banderasRestantes
+]
+
+{ #category : 'accessing' }
+Partida >> nivel [
+	^ nivel
+]
+
+{ #category : 'accessing' }
+Partida >> tablero [
+	^ tablero
+]
+
+{ #category : 'initialization' }
+Partida >> tablero: unTablero nivel: unNivel [
+	"Asocia el tablero y el nivel a la partida, y deja las banderas disponibles igual a la cantidad de minas."
+
+	tablero := unTablero.
+	nivel := unNivel.
+	banderasRestantes := unTablero cantidadMinas.
+	estado := #enCurso
 ]

@@ -10,7 +10,8 @@ Class {
 	#instVars : [
 		'filas',
 		'columnas',
-		'celdas'
+		'celdas',
+		'cantidadMinas'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -45,6 +46,13 @@ Tablero >> cantidadCeldasSegurasPorDescubrir [
 	^ celdas sum: [ :fila | fila count: [ :celda | celda tieneMina not and: celda estaDescubierta not ] ]
 ]
 
+{ #category : 'accessing' }
+Tablero >> cantidadMinas [
+	"Devuelve la cantidad de minas con la que fue generado el tablero."
+
+	^ cantidadMinas
+]
+
 { #category : 'configuration' }
 Tablero >> cantidadMinas: cantidad [
 	"Regenera la grilla con la cantidad de minas indicada y calcula las minas vecinas de cada celda."
@@ -56,6 +64,7 @@ Tablero >> cantidadMinas: cantidad [
 	(cantidad >= 0 and: cantidad <= totalCeldas) ifFalse: [
 		self error: 'La cantidad de minas debe estar entre 0 y ' , totalCeldas asString , ', inclusive' ].
 
+	cantidadMinas := cantidad.
 	celdas := self grillaConMinas: cantidad.
 	celdas do: [ :fila |
 		fila do: [ :celda |
