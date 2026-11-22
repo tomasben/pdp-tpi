@@ -3,7 +3,8 @@ Class {
 	#superclass : 'Morph',
 	#instVars : [
 		'tablero',
-		'tamanoCelda'
+		'tamanoCelda',
+		'partida'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -19,11 +20,24 @@ ventana addMorph: self frame: (0@0 corner: 1@1).
 ventana openInWorld. 
 ]
 
+{ #category : 'accessing' }
+TableroMorph >> partida [
+	^ partida
+]
+
 { #category : 'initialization' }
 TableroMorph >> configurarConTablero: unTablero [
 
     tablero := unTablero.
     self dibujarTablero.
+]
+
+{ #category : 'initialization' }
+TableroMorph >> configurarConPartida: unaPartida [
+	"Asocia la partida al morph y dibuja el tablero de esa partida."
+
+	partida := unaPartida.
+	self configurarConTablero: unaPartida tablero
 ]
 
 { #category : 'initialization' }
