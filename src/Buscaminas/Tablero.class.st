@@ -132,10 +132,17 @@ Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
 	self descubrirCelda: (self celdaEnFila: numeroFila columna: numeroColumna)
 ]
 
+{ #category : 'private' }
+Tablero >> desmarcarCelda: unaCelda [
+
+	unaCelda estaDescubierta ifTrue: [ ^ self ].
+	unaCelda desmarcar 
+]
+
 { #category : 'actions' }
 Tablero >> desmarcarCeldaEnFila: numeroFila columna: numeroColumna [
 
-	(self celdaEnFila: numeroFila columna: numeroColumna) desmarcar 
+	self desmarcarCelda: (self celdaEnFila: numeroFila columna: numeroColumna).
 ]
 
 { #category : 'accessing' }
@@ -169,10 +176,17 @@ Tablero >> grillaConMinas: cantidad [
 						  ifFalse: [ CeldaSinMina fila: fila columna: columna ] ] ]
 ]
 
+{ #category : 'private' }
+Tablero >> marcarCelda: unaCelda [
+
+	unaCelda estaDescubierta ifTrue: [ ^ self ].
+	unaCelda marcar
+]
+
 { #category : 'actions' }
 Tablero >> marcarCeldaEnFila: numeroFila columna: numeroColumna [
-	
-	(self celdaEnFila: numeroFila columna: numeroColumna) marcar
+
+	self marcarCelda: (self celdaEnFila: numeroFila columna: numeroColumna).
 ]
 
 { #category : 'testing' }
