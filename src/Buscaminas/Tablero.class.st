@@ -56,7 +56,7 @@ Tablero >> cantidadCeldasSegurasPorDescubrir [
 
 { #category : 'configuration' }
 Tablero >> cantidadMinas: cantidad [
-	"Establece la cantidad de celdas mina en el tablero. Debe ser menor o igual a la cantidad de celdas."
+	"Regenera la grilla con la cantidad de minas indicada y calcula las minas vecinas de cada celda."
 
 	| totalCeldas |
 	totalCeldas := filas * columnas.
@@ -66,11 +66,12 @@ Tablero >> cantidadMinas: cantidad [
 		self error: 'La cantidad de minas debe estar entre 0 y ' , totalCeldas asString , ', inclusive' ].
 
 	celdas := self grillaConMinas: cantidad.
-	 celdas do: [ :filaDeCeldas |
-        filaDeCeldas do: [ :celda |
-            celda cantidadMinasVecinas:
-                ((self vecinasDe: celda) count: [ :vecina | vecina tieneMina ]) ] ].
-	
+	celdas do: [ :fila |
+		fila do: [ :celda |
+			celda cantidadMinasVecinas: (self cantidadMinasVecinasDe: celda)
+		].
+	].
+
 	^ self
 ]
 
