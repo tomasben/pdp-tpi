@@ -17,34 +17,25 @@ Class {
 }
 
 { #category : 'instance creation' }
-Tablero class >> constructorDificil [
-
-|nuevoTablero|
-nuevoTablero := self filas: 16  columnas: 30. 
-nuevoTablero cantidadMinas: 99.
-^nuevoTablero
+Tablero class >> dificultadDificil [
+	^ self filas: 16 columnas: 30 cantidadMinas: 99 
 ]
 
 { #category : 'instance creation' }
-Tablero class >> constructorFacil [
-|nuevoTablero|
-nuevoTablero := self filas: 9  columnas: 9. 
-nuevoTablero cantidadMinas: 10.
-^nuevoTablero
+Tablero class >> dificultadFacil [
+	^ self filas: 9 columnas: 9 cantidadMinas: 10
 ]
 
 { #category : 'instance creation' }
-Tablero class >> constructorMedio [
-
-|nuevoTablero|
-nuevoTablero := self filas: 16  columnas: 16. 
-nuevoTablero cantidadMinas: 40.
-^nuevoTablero
+Tablero class >> dificultadMedia [
+	^ self filas: 16 columnas: 16 cantidadMinas: 40
+	
 ]
 
 { #category : 'instance creation' }
-Tablero class >> filas: numeroFilas columnas: numeroColumnas [
-	^ self new filas: numeroFilas columnas: numeroColumnas
+Tablero class >> filas: numeroFilas columnas: numeroColumnas cantidadMinas: numeroMinas [
+
+	^ self new filas: numeroFilas columnas: numeroColumnas cantidadMinas: numeroMinas.
 ]
 
 { #category : 'accessing' }
@@ -133,13 +124,12 @@ Tablero >> filas [
 ]
 
 { #category : 'initialization' }
-Tablero >> filas: numeroFilas columnas: numeroColumnas [
-	"Establece las dimensiones del Tablero cuando se inicializa. Usa una proporción de minas del 15% por defecto"
+Tablero >> filas: numeroFilas columnas: numeroColumnas cantidadMinas: numeroMinas [
+	"Establece las dimensiones del Tablero cuando se inicializa"
 
 	filas := numeroFilas.
 	columnas := numeroColumnas.
-	self densidadMinas: 0.15.
-	^ self
+	self cantidadMinas: numeroMinas
 ]
 
 { #category : 'private' }
