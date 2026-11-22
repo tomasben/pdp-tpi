@@ -1,5 +1,5 @@
 "
-Representa el tablero de juego y contiene las dimensiones y celdas que lo componen.
+Representa el tablero de juego
 
 Creación:
 Tablero filas: 3 columnas: 5.
@@ -47,12 +47,11 @@ Tablero class >> filas: numeroFilas columnas: numeroColumnas [
 	^ self new filas: numeroFilas columnas: numeroColumnas
 ]
 
-{ #category : 'as yet unclassified' }
-Tablero >> cantidadCeldasSinMinasDescubiertas [
-	"Cuenta cuántas celdas tienen mina o ya fueron descubiertas"
-	^ celdas sum: [ :filaDeCeldas |
-		filaDeCeldas count: [ :celda |
-			celda tieneMina or: [ celda estaDescubierta ] ] ]
+{ #category : 'accessing' }
+Tablero >> cantidadCeldasSegurasPorDescubrir [
+	"Devuelve el número de celdas sin mina que faltan por descubrir."
+
+	^ celdas sum: [ :fila | fila count: [ :celda | celda tieneMina not and: celda estaDescubierta not ] ]
 ]
 
 { #category : 'configuration' }
