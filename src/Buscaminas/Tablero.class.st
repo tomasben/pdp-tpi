@@ -142,6 +142,15 @@ Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
 	self descubrirCelda: (self celdaEnFila: numeroFila columna: numeroColumna)
 ]
 
+{ #category : 'actions' }
+Tablero >> descubrirTodasLasMinas [
+	celdas do: [ :fila |
+		fila do: [ :celda |
+			(celda	 tieneMina) ifTrue: [ celda descubrir ]
+		]
+	].
+]
+
 { #category : 'private' }
 Tablero >> desmarcarCelda: unaCelda [
 
