@@ -96,6 +96,11 @@ Partida >> nivel [
 ]
 
 { #category : 'accessing' }
+Partida >> reloj [ 
+ ^ reloj 
+]
+
+{ #category : 'accessing' }
 Partida >> tablero [
 	^ tablero
 ]
