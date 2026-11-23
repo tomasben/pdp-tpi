@@ -10,13 +10,6 @@ Class {
 	#package : 'Buscaminas'
 }
 
-{ #category : 'actions' }
-TableroMorph >> actualizar [
-	"Refleja en pantalla el estado logico de todas las celdas."
-
-	self submorphs do: [ :celdaVisual | celdaVisual actualizar ]
-]
-
 { #category : 'initialization' }
 TableroMorph >> abrirVentana [ 
 |ventana| 
@@ -25,6 +18,13 @@ ventana setLabel: 'Buscaminas'.
 ventana extent: self extent + (0@25).
 ventana addMorph: self frame: (0@0 corner: 1@1).
 ventana openInWorld. 
+]
+
+{ #category : 'actions' }
+TableroMorph >> actualizar [
+	"Refleja en pantalla el estado logico de todas las celdas."
+
+	self submorphs do: [ :celdaVisual | celdaVisual actualizar ]
 ]
 
 { #category : 'initialization' }

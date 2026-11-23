@@ -12,6 +12,11 @@ Class {
 	#package : 'Buscaminas'
 }
 
+{ #category : 'instance creation' }
+MenuJuego class >> abrir [
+	^ self new abrirVentana
+]
+
 { #category : 'initialization' }
 MenuJuego >> Dificil [
 
@@ -28,6 +33,23 @@ MenuJuego >> Facil [
 MenuJuego >> Medio [
 
 	self iniciarPartidaConNivel: #medio
+]
+
+{ #category : 'initialization' }
+MenuJuego >> abrirVentana [
+
+	self
+		extent: 300@200;
+		color: Color lightGray.
+        
+	self agregarTitulo.
+	self agregarBotones.
+    
+	ventana := SystemWindow new.
+	ventana setLabel: 'Buscaminas'.
+	ventana addMorph: self frame: (0@0 corner: 1@1).
+	ventana openInWorld.
+
 ]
 
 { #category : 'initialization' }
@@ -106,23 +128,6 @@ botonMedio color: Color yellow.
 botonMedio
 	target:self;
 	actionSelector: #Medio. 
-]
-
-{ #category : 'initialization' }
-MenuJuego >> iniciar [
-
-	self
-		extent: 300@200;
-		color: Color lightGray.
-        
-	self agregarTitulo.
-	self agregarBotones.
-    
-	ventana := SystemWindow new.
-	ventana setLabel: 'Buscaminas'.
-	ventana addMorph: self frame: (0@0 corner: 1@1).
-	ventana openInWorld.
-
 ]
 
 { #category : 'actions' }
