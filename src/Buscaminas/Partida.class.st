@@ -52,14 +52,21 @@ Partida >> banderasRestantes [
 ]
 
 { #category : 'actions' }
-Partida >> descubrirCelda: celda [ 
+Partida >> descubrirCelda: celda [
 
-( self estaEnCurso ) ifFalse: [ ^self ].
-(reloj estaDetenido) ifTrue: [ reloj iniciar ].
-tablero descubrirCelda: celda.
-(celda estaDescubierta and: [celda tieneMina]) ifTrue: [ estado := #perdida ]
-															 ifFalse: [ self evaluarEstado ]
+    (self estaEnCurso) ifFalse: [ ^ self ].
 
+    (celda estaDescubierta or: [ celda estaMarcada ])
+        ifTrue: [ ^ self ].
+
+    (reloj estaDetenido) ifTrue: [ reloj iniciar ].
+
+    tablero descubrirCeldaEnFila: (celda fila)
+        columna: (celda columna).
+
+    (celda estaDescubierta and: [ celda tieneMina ])
+        ifTrue: [ self terminarConEstado: #perdida ]
+        ifFalse: [ self evaluarEstado ].
 ]
 
 { #category : 'changes' }
