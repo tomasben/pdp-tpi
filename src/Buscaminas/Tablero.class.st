@@ -131,6 +131,7 @@ Tablero >> descubrirCelda: unaCelda [
 
 	unaCelda descubrir.
 	unaCelda tieneMina ifTrue: [ ^ self ].
+	unaCelda cantidadMinasVecinas > 0 ifTrue: [ ^ self ].
 
 	(self celdasVecinasDe: unaCelda) do: [ :vecina | vecina tieneMina ifFalse: [ self descubrirCelda: vecina ] ]
 ]
@@ -196,11 +197,4 @@ Tablero >> marcarCelda: unaCelda [
 Tablero >> marcarCeldaEnFila: numeroFila columna: numeroColumna [
 
 	self marcarCelda: (self celdaEnFila: numeroFila columna: numeroColumna).
-]
-
-{ #category : 'testing' }
-Tablero >> todasLasCeldasSinMina [
-	^ celdas allSatisfy: [ :filaDeCeldas |
-			  filaDeCeldas allSatisfy: [ :celda |
-					  celda tieneMina or: [ celda estaDescubierta ] ] ]
 ]

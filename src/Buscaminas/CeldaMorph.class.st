@@ -58,7 +58,7 @@ self borderColor: Color black.
 { #category : 'actions' }
 CeldaMorph >> descubrir [
 
-	juego actualizarEstado: self celdaLogica
+	juego descubrirCelda: self celdaLogica
 ]
 
 { #category : 'event handling' }

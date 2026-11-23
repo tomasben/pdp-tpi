@@ -11,7 +11,8 @@ Class {
 		'tablero',
 		'estado',
 		'nivel',
-		'banderasRestantes'
+		'banderasRestantes',
+		'reloj'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -33,22 +34,6 @@ Partida class >> tableroParaNivel: unNivel [
 	^ self error: 'Nivel desconocido: ' , unNivel printString
 ]
 
-{ #category : 'initialization' }
-Partida >> initialize [
-
-	super initialize.
-	estado := #enCurso
-]
-
-{ #category : 'actions' }
-Partida >> actualizarEstado: celda [ 
-
-( self estaEnCurso ) ifTrue: [ 
-			tablero descubrirCeldaEnFila: celda fila columna: celda columna.
-			( celda estaDescubierta and: [ celda tieneMina ] ) ifTrue: [ estado := #perdida ] ifFalse: [ estado := #enCurso ]
-	 ]
-]
-
 { #category : 'actions' }
 Partida >> alternarBandera: celda [
 "Alterna el estado de bandera de una celda y actualiza el contador si la partida sigue en curso."
@@ -61,6 +46,22 @@ Partida >> alternarBandera: celda [
 		]
 ]
 
+{ #category : 'accessing' }
+Partida >> banderasRestantes [
+	^ banderasRestantes
+]
+
+{ #category : 'actions' }
+Partida >> descubrirCelda: celda [ 
+
+( self estaEnCurso ) ifFalse: [ ^self ].
+(reloj estaDetenido) ifTrue: [ reloj iniciar ].
+tablero descubrirCelda: celda.
+(celda estaDescubierta and: [celda tieneMina]) ifTrue: [ estado := #perdida ]
+															 ifFalse: [ self evaluarEstado ]
+
+]
+
 { #category : 'changes' }
 Partida >> estaEnCurso [
 "devuelve True si la partida sigue activa, o false si ya termino"
@@ -69,14 +70,17 @@ Partida >> estaEnCurso [
 
 { #category : 'changes' }
 Partida >> evaluarEstado [
-"Verifica si el tablero tiene alguna mina descubierta (perdiste) o si ya se despejaron todas las celdas seguras (ganaste)"
+	"Verifica si el tablero tiene alguna mina descubierta (perdiste) o si ya se despejaron todas las celdas seguras (ganaste)"
 
-(tablero todasLasCeldasSinMina) ifTrue: [ estado := #Ganada ]
+	(tablero cantidadCeldasSegurasPorDescubrir = 0) ifTrue: [ self terminarConEstado: #ganada ]
 ]
 
-{ #category : 'accessing' }
-Partida >> banderasRestantes [
-	^ banderasRestantes
+{ #category : 'initialization' }
+Partida >> initialize [
+
+	super initialize.
+	estado := #enCurso.
+	reloj := reloj new
 ]
 
 { #category : 'accessing' }
@@ -97,4 +101,10 @@ Partida >> tablero: unTablero nivel: unNivel [
 	nivel := unNivel.
 	banderasRestantes := unTablero cantidadMinas.
 	estado := #enCurso
+]
+
+{ #category : 'private' }
+Partida >> terminarConEstado: unEstado [
+	estado := unEstado. "cambia el estado de la partida (#ganada o #perdida)"
+	reloj terminar "le pide a reloj que cambie su estado a #termiado"
 ]
