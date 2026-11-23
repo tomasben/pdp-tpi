@@ -80,7 +80,7 @@ Partida >> initialize [
 
 	super initialize.
 	estado := #enCurso.
-	reloj := reloj new
+	reloj := Reloj new
 ]
 
 { #category : 'accessing' }
