@@ -111,12 +111,17 @@ CeldaMorph >> mostrarImagen: nombreArchivo [
 { #category : 'private' }
 CeldaMorph >> mostrarTexto: unTexto [
 
-	| etiqueta |
-	self removeAllMorphs.
-	unTexto isEmpty ifTrue: [ ^ self ].
-	etiqueta := StringMorph contents: unTexto.
-	etiqueta center: self center.
-	self addMorph: etiqueta
+    | etiqueta |
+
+    self removeAllMorphs.
+
+    unTexto isEmpty ifTrue: [ ^ self ].
+
+    etiqueta := StringMorph contents: unTexto.
+    etiqueta color: Color black.
+
+    self addMorph: etiqueta.
+    etiqueta center: self center.
 ]
 
 { #category : 'event handling' }
