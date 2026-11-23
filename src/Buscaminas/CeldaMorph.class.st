@@ -12,24 +12,36 @@ Class {
 
 { #category : 'actions' }
 CeldaMorph >> actualizar [
-	"Refleja en pantalla el estado logico de la celda: sin descubrir, marcada o descubierta."
 
-	| celda |
-	juego ifNil: [ ^ self ].
-	celda := self celdaLogica.
+    | celda |
 
-	celda estaDescubierta ifFalse: [
-		self color: Color lightGray.
-		^ self mostrarTexto: (celda estaMarcada ifTrue: [ 'B' ] ifFalse: [ '' ]) ].
+    juego ifNil: [ ^ self ].
+    celda := self celdaLogica.
 
-	celda tieneMina ifTrue: [
-		self color: Color red.
-		^ self mostrarTexto: '*' ].
+    celda estaDescubierta ifFalse: [
+        self color: Color lightGray.
 
-	self color: Color white.
-	self mostrarTexto: (celda cantidadMinasVecinas > 0
-			 ifTrue: [ celda cantidadMinasVecinas printString ]
-			 ifFalse: [ '' ])
+        celda estaMarcada
+            ifTrue: [
+                self mostrarImagen: 'bandera.png'
+            ]
+            ifFalse: [
+                self mostrarTexto: ''
+            ].
+
+    ] ifTrue: [
+        celda tieneMina
+            ifTrue: [
+                self color: Color red.
+                self mostrarImagen: 'bomba.png'
+            ]
+            ifFalse: [
+                self color: Color white.
+                self mostrarTexto: (celda cantidadMinasVecinas > 0
+                    ifTrue: [ celda cantidadMinasVecinas printString ]
+                    ifFalse: [ '' ])
+            ]
+    ].
 ]
 
 { #category : 'actions' }
@@ -70,6 +82,30 @@ CeldaMorph >> handlesMouseDown: anEvent [
 CeldaMorph >> juego: unaPartida [
 
 	juego := unaPartida
+]
+
+{ #category : 'private' }
+CeldaMorph >> mostrarImagen: nombreArchivo [
+
+    | repositorio ruta imagen imagenMorph |
+
+    repositorio := IceRepository registry
+        detect: [ :repo | repo name = 'pdp-tpi' ].
+
+    ruta := repositorio location / 'assets' / nombreArchivo.
+
+    imagen := ImageReadWriter
+        formFromFileNamed: ruta fullName.
+
+    imagen := imagen scaledToSize: 24@24.
+
+    imagenMorph := ImageMorph new.
+    imagenMorph image: imagen.
+
+    self removeAllMorphs.
+    self addMorph: imagenMorph.
+
+    imagenMorph center: self center.
 ]
 
 { #category : 'private' }
