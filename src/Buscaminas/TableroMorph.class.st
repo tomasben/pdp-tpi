@@ -10,6 +10,13 @@ Class {
 	#package : 'Buscaminas'
 }
 
+{ #category : 'actions' }
+TableroMorph >> actualizar [
+	"Refleja en pantalla el estado logico de todas las celdas."
+
+	self submorphs do: [ :celdaVisual | celdaVisual actualizar ]
+]
+
 { #category : 'initialization' }
 TableroMorph >> abrirVentana [ 
 |ventana| 
@@ -48,6 +55,7 @@ TableroMorph >> dibujarTablero [
 
             celdaVisual configurarFila: numeroFila
                 columna: numeroColumna.
+            celdaVisual juego: partida.
 
             celdaVisual position:
                 ((numeroColumna - 1) * 30)

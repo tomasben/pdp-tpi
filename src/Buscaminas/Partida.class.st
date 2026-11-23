@@ -38,7 +38,7 @@ Partida class >> tableroParaNivel: unNivel [
 Partida >> alternarBandera: celda [
 "Alterna el estado de bandera de una celda y actualiza el contador si la partida sigue en curso."
 
-( self estaEnCurso ) ifTrue: [  
+( self estaEnCurso and: [ celda estaDescubierta not ] ) ifTrue: [  
 				(celda estaMarcada ) ifTrue: [ celda desmarcar. banderasRestantes := banderasRestantes + 1 ] 
 					ifFalse: [
 						(banderasRestantes ~= 0) ifTrue: [ celda marcar. banderasRestantes  := banderasRestantes - 1]
@@ -80,7 +80,7 @@ Partida >> initialize [
 
 	super initialize.
 	estado := #enCurso.
-	reloj := reloj new
+	reloj := Reloj new
 ]
 
 { #category : 'accessing' }
