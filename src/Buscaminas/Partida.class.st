@@ -1,8 +1,8 @@
 "
 Representa la partida actual, registrando el tablero asociado, la dificultad, el estado de la partida y la cantidad de banderas restantes
 
-Creacion:
-Partida tablero: 1, estado: en curso, nivel: medio, banderas restantes: 20
+Creación:
+Partida nivel: #medio
 "
 Class {
 	#name : 'Partida',
@@ -19,20 +19,30 @@ Class {
 	#package : 'Buscaminas'
 }
 
-{ #category : 'instance creation' }
-Partida class >> nivel: unNivel [
-	"Crea una partida nueva con el tablero correspondiente al nivel (#facil, #medio o #dificil)."
+{ #category : 'private' }
+Partida class >> configuracionParaNivel: unNivel [
 
-	^ self new tablero: (self tableroParaNivel: unNivel) nivel: unNivel
+	| configuraciones |
+	configuraciones := {
+		#facil -> { #crearTablero -> [ Tablero dificultadFacil ]. #vidas -> 3 } asDictionary.
+		#medio -> { #crearTablero -> [ Tablero dificultadMedia ]. #vidas -> 2 } asDictionary.
+		#dificil -> { #crearTablero -> [ Tablero dificultadDificil ]. #vidas -> 1 } asDictionary
+	} asDictionary.
+
+	^ configuraciones at: unNivel ifAbsent: [
+		  self error: 'Nivel desconocido: ' , unNivel printString ]
 ]
 
-{ #category : 'private' }
-Partida class >> tableroParaNivel: unNivel [
+{ #category : 'instance creation' }
+Partida class >> nivel: unNivel [
+	"Crea una partida con el tablero y las vidas de la dificultad elegida."
 
-	unNivel = #facil ifTrue: [ ^ Tablero dificultadFacil ].
-	unNivel = #medio ifTrue: [ ^ Tablero dificultadMedia ].
-	unNivel = #dificil ifTrue: [ ^ Tablero dificultadDificil ].
-	^ self error: 'Nivel desconocido: ' , unNivel printString
+	| configuracion |
+	configuracion := self configuracionParaNivel: unNivel.
+	^ self new
+		  tablero: (configuracion at: #crearTablero) value
+		  nivel: unNivel
+		  vidas: (configuracion at: #vidas)
 ]
 
 { #category : 'actions' }
@@ -117,12 +127,23 @@ Partida >> tablero [
 
 { #category : 'initialization' }
 Partida >> tablero: unTablero nivel: unNivel [
-	"Asocia el tablero y el nivel a la partida, y deja las banderas disponibles igual a la cantidad de minas."
+	"Permite crear una partida con un tablero personalizado y las vidas del nivel elegido."
+
+	| configuracion |
+	configuracion := self class configuracionParaNivel: unNivel.
+	^ self
+		  tablero: unTablero
+		  nivel: unNivel
+		  vidas: (configuracion at: #vidas)
+]
+
+{ #category : 'private' }
+Partida >> tablero: unTablero nivel: unNivel vidas: cantidadVidas [
 
 	tablero := unTablero.
 	nivel := unNivel.
 	banderasRestantes := unTablero cantidadMinas.
-	vidasResantes := self vidasParaNivel: unNivel.
+	vidasResantes := cantidadVidas.
 	estado := #enCurso
 ]
 
@@ -131,13 +152,6 @@ Partida >> terminarConEstado: unEstado [
 	estado := unEstado.
 	reloj terminar.
 	estado = #perdida ifTrue: [ tablero descubrirTodasLasMinas ]
-]
-
-{ #category : 'private' }
-Partida >> vidasParaNivel: unNivel [
-	unNivel = #facil ifTrue: [ ^3 ].
-	unNivel = #facil ifTrue: [ ^2 ].
-	^1
 ]
 
 { #category : 'accessing' }
