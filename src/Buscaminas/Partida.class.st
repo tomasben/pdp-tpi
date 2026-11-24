@@ -55,6 +55,7 @@ Partida >> banderasRestantes [
 { #category : 'actions' }
 Partida >> descubrirCelda: celda [
 
+    | celdaActual |
     (self estaEnCurso) ifFalse: [ ^ self ].
 
     (celda estaDescubierta or: [ celda estaMarcada ])
@@ -65,7 +66,9 @@ Partida >> descubrirCelda: celda [
     tablero descubrirCeldaEnFila: (celda fila)
         columna: (celda columna).
 
-    (celda estaDescubierta and: [ celda tieneMina ])
+    "El primer clic puede regenerar el tablero y reemplazar sus celdas."
+    celdaActual := tablero celdaEnFila: celda fila columna: celda columna.
+    (celdaActual estaDescubierta and: [ celdaActual tieneMina ])
         ifTrue: [ self perderVida ]
         ifFalse: [ self evaluarEstado ].
 ]
@@ -78,7 +81,7 @@ Partida >> estaEnCurso [
 
 { #category : 'changes' }
 Partida >> evaluarEstado [
-	"Verifica si el tablero tiene alguna mina descubierta (perdiste) o si ya se despejaron todas las celdas seguras (ganaste)"
+	"Verifica si se despejaron todas las celdas seguras."
 
 	(tablero cantidadCeldasSegurasPorDescubrir = 0) ifTrue: [ self terminarConEstado: #ganada ]
 ]
@@ -125,8 +128,9 @@ Partida >> tablero: unTablero nivel: unNivel [
 
 { #category : 'private' }
 Partida >> terminarConEstado: unEstado [
-	estado := unEstado. "cambia el estado de la partida (#ganada o #perdida)"
-	reloj terminar "le pide a reloj que cambie su estado a #termiado"
+	estado := unEstado.
+	reloj terminar.
+	estado = #perdida ifTrue: [ tablero descubrirTodasLasMinas ]
 ]
 
 { #category : 'private' }
