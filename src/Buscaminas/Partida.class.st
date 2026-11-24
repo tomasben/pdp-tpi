@@ -12,7 +12,8 @@ Class {
 		'estado',
 		'nivel',
 		'banderasRestantes',
-		'reloj'
+		'reloj',
+		'vidasResantes'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -65,7 +66,7 @@ Partida >> descubrirCelda: celda [
         columna: (celda columna).
 
     (celda estaDescubierta and: [ celda tieneMina ])
-        ifTrue: [ self terminarConEstado: #perdida ]
+        ifTrue: [ self perderVida ]
         ifFalse: [ self evaluarEstado ].
 ]
 
@@ -95,6 +96,12 @@ Partida >> nivel [
 	^ nivel
 ]
 
+{ #category : 'private' }
+Partida >> perderVida [
+	vidasResantes := vidasResantes - 1.
+	vidasResantes = 0 ifTrue: [ self terminarConEstado: #perdida ]
+]
+
 { #category : 'accessing' }
 Partida >> reloj [ 
  ^ reloj 
@@ -112,6 +119,7 @@ Partida >> tablero: unTablero nivel: unNivel [
 	tablero := unTablero.
 	nivel := unNivel.
 	banderasRestantes := unTablero cantidadMinas.
+	vidasResantes := self vidasParaNivel: unNivel.
 	estado := #enCurso
 ]
 
@@ -119,4 +127,16 @@ Partida >> tablero: unTablero nivel: unNivel [
 Partida >> terminarConEstado: unEstado [
 	estado := unEstado. "cambia el estado de la partida (#ganada o #perdida)"
 	reloj terminar "le pide a reloj que cambie su estado a #termiado"
+]
+
+{ #category : 'private' }
+Partida >> vidasParaNivel: unNivel [
+	unNivel = #facil ifTrue: [ ^3 ].
+	unNivel = #facil ifTrue: [ ^2 ].
+	^1
+]
+
+{ #category : 'accessing' }
+Partida >> vidasRestantes [
+	^vidasResantes 
 ]

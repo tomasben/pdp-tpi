@@ -7,7 +7,8 @@ Class {
 		'partida',
 		'tituloMorph',
 		'minasMorph',
-		'relojMorph'
+		'relojMorph',
+		'vidasMorph'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
@@ -27,6 +28,8 @@ ventana openInWorld.
 TableroMorph >> actualizar [
 	"Refleja en pantalla el estado logico de todas las celdas y se fija si son celdas morph."
     self submorphs do: [ :elemento |
+			vidasMorph ifNotNil: [
+   	     		vidasMorph contents: 'VIDAS: ' , partida vidasRestantes printString ].
         (elemento isKindOf: CeldaMorph)
             ifTrue: [ elemento actualizar ]
     ].
@@ -111,6 +114,14 @@ textoReloj center:
 
 relojMorph center:
     panelReloj position + ((panelReloj width // 2) @ 40).
+
+    "Vidas"
+    vidasMorph := StringMorph
+        contents: 'VIDAS: ' , partida vidasRestantes printString
+        font: fuenteChica.
+    vidasMorph color: Color white.
+    self addMorph: vidasMorph.
+    vidasMorph center: (self width // 2) @ 158.
 ]
 
 { #category : 'initialization' }
