@@ -138,6 +138,19 @@ Tablero >> descubrirCelda: unaCelda [
 
 { #category : 'actions' }
 Tablero >> descubrirCeldaEnFila: numeroFila columna: numeroColumna [
+	"En el primer click regenera el tablero hasta que la celda no tenga minas alrededor, asi siempre abre una zona."
+
+	| celda intentos esPrimerClic |
+	esPrimerClic := celdas allSatisfy: [ :fila |
+		fila allSatisfy: [ :unaCelda | unaCelda estaDescubierta not ] ].
+
+	esPrimerClic ifTrue: [
+		intentos := 0.
+		[ celda := self celdaEnFila: numeroFila columna: numeroColumna.
+		  intentos < 1000 and: [ celda tieneMina or: [ celda cantidadMinasVecinas > 0 ] ] ]
+			whileTrue: [
+				self cantidadMinas: cantidadMinas.
+				intentos := intentos + 1 ] ].
 
 	self descubrirCelda: (self celdaEnFila: numeroFila columna: numeroColumna)
 ]
