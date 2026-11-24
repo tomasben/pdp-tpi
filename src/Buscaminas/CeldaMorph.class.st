@@ -23,7 +23,7 @@ CeldaMorph >> actualizar [
 
         celda estaMarcada
             ifTrue: [
-                self mostrarImagen: 'bandera.png'
+                self mostrarImagen: IconosBuscaminas bandera
             ]
             ifFalse: [
                 self mostrarTexto: ''
@@ -33,7 +33,7 @@ CeldaMorph >> actualizar [
         celda tieneMina
             ifTrue: [
                 self color: Color red.
-                self mostrarImagen: 'bomba.png'
+                self mostrarImagen: IconosBuscaminas bomba
             ]
             ifFalse: [
                 self color: Color white.
@@ -85,20 +85,9 @@ CeldaMorph >> juego: unaPartida [
 ]
 
 { #category : 'private' }
-CeldaMorph >> mostrarImagen: nombreArchivo [
+CeldaMorph >> mostrarImagen: imagen [
 
-    | repositorio ruta imagen imagenMorph |
-
-    repositorio := IceRepository registry
-        detect: [ :repo | repo name = 'pdp-tpi' ].
-
-    ruta := repositorio location / 'assets' / nombreArchivo.
-
-    imagen := ImageReadWriter
-        formFromFileNamed: ruta fullName.
-
-    imagen := imagen scaledToSize: 24@24.
-
+    | imagenMorph |
     imagenMorph := ImageMorph new.
     imagenMorph image: imagen.
 
