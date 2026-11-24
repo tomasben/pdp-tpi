@@ -89,6 +89,12 @@ Partida >> estaEnCurso [
 ^estado = #enCurso
 ]
 
+{ #category : 'testing' }
+Partida >> estaPerdida [
+
+	^ estado = #perdida
+]
+
 { #category : 'changes' }
 Partida >> evaluarEstado [
 	"Verifica si se despejaron todas las celdas seguras."

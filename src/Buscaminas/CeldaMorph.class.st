@@ -118,7 +118,9 @@ CeldaMorph >> mouseDown: anEvent [
 	"Click izquierdo: descubre la celda. Click derecho: alterna la bandera."
 
 	juego ifNil: [ ^ self ].
-	juego estaEnCurso ifFalse: [ ^ self ].
+	juego estaEnCurso ifFalse: [
+		self owner ifNotNil: [ :tableroMorph | tableroMorph mouseDown: anEvent ].
+		^ self ].
 
 	anEvent redButtonPressed ifTrue: [ self descubrir ].
 	anEvent yellowButtonPressed ifTrue: [ self alternarBandera ].

@@ -8,20 +8,23 @@ Class {
 		'tituloMorph',
 		'minasMorph',
 		'relojMorph',
-		'vidasMorph'
+		'vidasMorph',
+		'cierre'
 	],
 	#category : 'Buscaminas',
 	#package : 'Buscaminas'
 }
 
 { #category : 'initialization' }
-TableroMorph >> abrirVentana [ 
-|ventana| 
-ventana:= SystemWindow new. 
-ventana setLabel: 'Buscaminas'. 
-ventana extent: self extent + (0@25).
-ventana addMorph: self frame: (0@0 corner: 1@1).
-ventana openInWorld. 
+TableroMorph >> abrirVentana [
+
+	| ventana tamanoTablero |
+	tamanoTablero := self extent.
+	ventana := SystemWindow new.
+	ventana setLabel: 'Buscaminas'.
+	ventana addMorph: self frame: (0 @ 0 corner: 1 @ 1).
+	ventana openInWorld.
+	ventana extent: tamanoTablero + (ventana extent - self extent)
 ]
 
 { #category : 'actions' }
@@ -169,6 +172,7 @@ TableroMorph >> dibujarTablero [
       anchoVentana altoVentana origenX origenY |
 
     self removeAllMorphs.
+    cierre := nil.
 
     anchoTablero := tablero columnas * tamanoCelda.
     altoTablero := tablero filas * tamanoCelda.
@@ -211,6 +215,25 @@ TableroMorph >> dibujarTablero [
     ].
 ]
 
+{ #category : 'event handling' }
+TableroMorph >> handlesMouseDown: anEvent [
+
+	^ partida isNotNil and: [ partida estaPerdida ]
+]
+
+{ #category : 'event handling' }
+TableroMorph >> mouseDown: anEvent [
+
+	(self handlesMouseDown: anEvent) ifFalse: [ ^ self ].
+	(anEvent redButtonChanged and: [ anEvent redButtonPressed ]) ifFalse: [ ^ self ].
+	cierre ifNotNil: [ ^ self ].
+
+	cierre := CierreCircularMorph new.
+	cierre bounds: self bounds.
+	cierre alTerminar: [ self volverAlMenu ].
+	self addMorph: cierre
+]
+
 { #category : 'accessing' }
 TableroMorph >> partida [
 	^ partida
@@ -222,6 +245,15 @@ TableroMorph >> step [
     relojMorph ifNotNil: [
         relojMorph contents: partida reloj tiempoFormateado.
     ].
+]
+
+{ #category : 'private' }
+TableroMorph >> volverAlMenu [
+
+	| ventana |
+	ventana := self containingWindow.
+	MenuJuego abrir.
+	ventana ifNotNil: [ ventana delete ]
 ]
 
 { #category : 'stepping and presenter' }
