@@ -1,0 +1,33 @@
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  clase/.style={
+    draw,thin,fill=white,align=center,text width=3.55cm,inner sep=4.5pt,
+    font=\fontsize{9bp}{10.5bp}\selectfont
+  },
+  etiqueta/.style={fill=white,inner sep=1.5pt,font=\fontsize{8.5bp}{10bp}\selectfont},
+  asocia/.style={-{Latex[length=4pt,width=4pt]}},
+  depende/.style={dashed,-{Latex[open,length=4pt,width=4pt]}},
+  compone/.style={{Diamond[length=5.5pt,width=4pt]}-},
+  agrega/.style={{Diamond[open,length=5.5pt,width=4pt]}-},
+  hereda/.style={-{Triangle[open,length=5pt,width=6pt]}}
+]
+  \node[clase] (menu) at (2.0,0) {\textbf{MenuJuego}\\ \texttt{abrir}};
+  \node[clase] (vista) at (7.75,0) {\textbf{TableroMorph}\\ \texttt{actualizar}};
+  \node[clase] (casilla) at (13.5,0) {\textbf{CeldaMorph}\\ \texttt{mouseDown:}};
+  \node[clase] (partida) at (7.75,-2.35) {\textbf{Partida}\\ \texttt{descubrirCelda:}\\ \texttt{alternarBandera:}};
+  \node[clase] (reloj) at (2.0,-2.35) {\textbf{Reloj}\\ \texttt{iniciar}, \texttt{terminar}};
+  \node[clase] (tablero) at (7.75,-4.45) {\textbf{Tablero}\\ \texttt{celdaEnFila:columna:}};
+  \node[clase] (celda) at (7.75,-6.45) {\textit{abstracta}\\ \textbf{Celda}\\ \texttt{descubrir}, \texttt{tieneMina}};
+  \node[clase] (conmina) at (4.7,-8.35) {\textbf{CeldaConMina}\\ \texttt{tieneMina} → \texttt{true}};
+  \node[clase] (sinmina) at (10.8,-8.35) {\textbf{CeldaSinMina}\\ \texttt{tieneMina} → \texttt{false}};
+
+  \draw[depende] (menu) -- node[etiqueta,above] {crea} (vista);
+  \draw[compone] (vista) -- (casilla);
+  \draw[asocia] (vista.south) -- (partida.north);
+  \draw[asocia] (casilla.south) |- node[etiqueta,pos=.76,above] {envía jugadas} (partida.east);
+  \draw[compone] (partida.west) -- (reloj.east);
+  \draw[agrega] (partida.south) -- (tablero.north);
+  \draw[compone] (tablero.south) -- node[etiqueta,right] {1..*} (celda.north);
+  \draw[hereda] (conmina.north) |- ([xshift=-.65cm,yshift=-.48cm]celda.south) -- ([xshift=-.65cm]celda.south);
+  \draw[hereda] (sinmina.north) |- ([xshift=.65cm,yshift=-.48cm]celda.south) -- ([xshift=.65cm]celda.south);
+\end{tikzpicture}

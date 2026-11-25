@@ -1,0 +1,33 @@
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  clase/.style={
+    draw,thin,fill=white,inner sep=5pt,minimum width=2.3cm,
+    font=\fontsize{9.5bp}{11bp}\selectfont\bfseries
+  },
+  mensaje/.style={-{Latex[length=4pt,width=4pt]}},
+  texto/.style={inner sep=2pt,fill=white,font=\fontsize{9bp}{10.5bp}\selectfont}
+]
+  \node[clase] (vista) at (1.45,0) {TableroMorph};
+  \node[clase] (casilla) at (5.25,0) {CeldaMorph};
+  \node[clase] (partida) at (9.0,0) {Partida};
+  \node[clase] (tablero) at (14.35,0) {Tablero};
+
+  \foreach \objeto in {vista,casilla,partida,tablero}
+    \draw[dashed,black!55] (\objeto.south) -- (\objeto |- 0,-4.55);
+
+  \draw[mensaje] (casilla |- 0,-.85) --
+    node[texto,above] {\texttt{descubrirCelda:}} (partida |- 0,-.85);
+
+  \draw[mensaje] (partida |- 0,-1.50) --
+    node[texto,above] {\texttt{descubrirCeldaEnFila:columna:}} (tablero |- 0,-1.50);
+
+  \draw[mensaje] (tablero |- 0,-2.08) -- ++(.8,0) -- ++(0,-.66) -- (tablero |- 0,-2.74);
+  \node[texto,anchor=east,align=right] at (14.15,-2.41)
+    {\texttt{descubrirCelda:} en cascada\\Omite las celdas ya abiertas o marcadas};
+
+  \draw[mensaje] (casilla |- 0,-3.45) --
+    node[texto,above] {\texttt{actualizar}} (vista |- 0,-3.45);
+
+  \draw[mensaje] (vista |- 0,-4.15) --
+    node[texto,above] {\texttt{actualizar} cada casilla} (casilla |- 0,-4.15);
+\end{tikzpicture}
